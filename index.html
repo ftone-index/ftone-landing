@@ -115,6 +115,11 @@
             assigns a hawkish/dovish score to each, and publishes a fresh 0–100 reading.
         </p>
         <p>
+            The dashboard displays <strong>two values</strong>: the <strong>raw instant score</strong> (the current day's average)
+            and the <strong>smoothed 7‑day moving average</strong>, so you can see both the immediate
+            reaction and the underlying trend.
+        </p>
+        <p>
             <strong>0 = extremely dovish</strong> (signalling rate cuts / easing) &nbsp;|&nbsp;
             <strong>100 = extremely hawkish</strong> (signalling rate hikes / tightening)
         </p>
@@ -138,7 +143,7 @@
             <strong>2. AI scoring</strong> – each document is passed to a large language model instructed to rate the tone from 0 (dovish) to 100 (hawkish). The model considers the text's language regarding inflation, employment, economic growth, and policy guidance.
         </p>
         <p>
-            <strong>3. Smoothing</strong> – the scores are averaged and run through a 7‑day moving window to produce the final FTN value.
+            <strong>3. Smoothing</strong> – the raw scores are averaged and run through a 7‑day moving window to produce the smoothed FTN value. Both the raw and smoothed values are shown on the dashboard.
         </p>
         <p>
             <strong>4. Confidence estimation</strong> – the number of sources and total text volume determine the confidence label.
