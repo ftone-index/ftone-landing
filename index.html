@@ -128,7 +128,7 @@
 
     <h2>Why FTN?</h2>
     <ul class="features">
-        <li><strong>Transparent methodology</strong> – every reading is linked to the source documents that produced it.</li>
+        <li><strong>Transparent methodology</strong> – every reading is linked to the source documents that produced it, with speaker attribution.</li>
         <li><strong>Confidence‑weighted</strong> – HIGH / MEDIUM / LOW based on the breadth of sources analysed.</li>
         <li><strong>No black boxes</strong> – the index is free and the raw API is publicly accessible.</li>
         <li><strong>Always fresh</strong> – recalculated with every request, while a background process keeps the data pipeline warm 24/7, so you always see a <strong>real‑time assessment</strong>.</li>
@@ -147,7 +147,10 @@
             <strong>3. Smoothing</strong> – the raw scores are averaged (simple mean across the day's documents) and then run through a 7‑day moving window to produce the smoothed FTN value. Both the raw (instant) and smoothed values are shown on the dashboard.
         </p>
         <p>
-            <strong>4. Confidence estimation</strong> – the number of sources and total text volume determine the confidence label.
+            <strong>4. Qualitative label</strong> – the “Hawkish” / “Dovish” label normally follows the smoothed score. However, if the raw score makes a sharp move (≥ 5 points) in the opposite direction, the label switches to reflect the raw score instead — acting as an early warning of a potential trend change.
+        </p>
+        <p>
+            <strong>5. Confidence estimation</strong> – the number of sources and total text volume determine the confidence label.
         </p>
     </div>
 
