@@ -110,7 +110,8 @@
         <h2>What is FTN?</h2>
         <p>
             The F‑Tone Index measures the tone of Federal Reserve communications—
-            speeches, FOMC statements, and minutes—using artificial intelligence.
+            speeches, FOMC statements, and minutes, plus regional Fed speeches, testimony,
+            and Fed blog posts—using artificial intelligence.
             On every visit, our system reads the latest available primary sources,
             assigns a hawkish/dovish score to each, and publishes a fresh 0–100 reading.
         </p>
@@ -119,6 +120,11 @@
             the <strong>raw instant score</strong> (the simple average of all individual document scores from the current analysis)
             and the <strong>smoothed 7‑day moving average</strong>, so you can see both the immediate
             reaction and the underlying trend.
+        </p>
+        <p>
+            A companion <strong>Market Expectation</strong> score, produced by a separate service,
+            shows what Treasury yields and the US Dollar Index are collectively pricing about
+            the Fed's next moves.
         </p>
         <p>
             <strong>0 = extremely dovish</strong> (signalling rate cuts / easing) &nbsp;|&nbsp;
@@ -138,7 +144,7 @@
     <h2>Methodology at a Glance</h2>
     <div class="card">
         <p>
-            <strong>1. Data collection</strong> – we scrape the latest Federal Reserve speeches, FOMC statements, and minutes.
+            <strong>1. Data collection</strong> – we scrape the latest Federal Reserve speeches, FOMC statements, minutes, regional Fed speeches, testimony, and Fed blog posts.
         </p>
         <p>
             <strong>2. AI scoring</strong> – each document is passed to a large language model instructed to rate the tone from 0 (dovish) to 100 (hawkish). The model considers the text's language regarding inflation, employment, economic growth, and policy guidance.
@@ -150,7 +156,10 @@
             <strong>4. Qualitative label</strong> – the “Hawkish” / “Dovish” label normally follows the smoothed score. However, if the raw score makes a sharp move (≥ 5 points) in the opposite direction, the label switches to reflect the raw score instead — acting as an early warning of a potential trend change.
         </p>
         <p>
-            <strong>5. Confidence estimation</strong> – the number of sources and total text volume determine the confidence label.
+            <strong>5. Market expectation</strong> – a separate service produces a companion score from Treasury yields and the US Dollar Index, displayed below the FTN data on the dashboard.
+        </p>
+        <p>
+            <strong>6. Confidence estimation</strong> – the number of sources and total text volume determine the confidence label.
         </p>
     </div>
 
