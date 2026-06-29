@@ -164,23 +164,39 @@
     <h2 id="methodology">Methodology at a Glance</h2>
     <div class="card">
         <p>
-            <strong>1. Data collection</strong> – we scrape the latest Federal Reserve speeches, FOMC statements, minutes, regional Fed speeches, testimony, and Fed blog posts.
+            <strong>1. Radical transparency:</strong> The FTN Index is built on one core principle: every score is traceable to its source, every number is verifiable. No black boxes. No hidden logic. Just open data, openly presented.
         </p>
         <p>
-            <strong>2. AI scoring</strong> – each document is passed to a large language model instructed to rate the tone from 0 (dovish) to 100 (hawkish). The model considers the text's language regarding inflation, employment, economic growth, and policy guidance.
+            <strong>2. Scale:</strong> The F‑Tone Index ranges from 0 (extremely dovish) to 100 (extremely hawkish). It measures the Federal Reserve’s policy tone as expressed in official speeches, FOMC statements, and minutes, plus regional Fed speeches, testimony, and Fed blog posts. A companion Market Expectation score is produced by a separate service using Treasury yields and the US Dollar Index.
         </p>
         <p>
-            <strong>3. Smoothing</strong> – the raw scores are averaged (simple mean across the day's documents) and then run through a 7‑day moving window to produce the smoothed FTN value. Both the raw (instant) and smoothed values are shown on the dashboard.
-            Traders and short‑term decision‑makers may find the raw score more useful; longer‑term analysts may prefer the smoothed trend.
+            <strong>3. What “hawkish/dovish” means:</strong> The score reflects a combined assessment of two factors:
+            <br>– <em>Imminence</em>: how soon a change to the federal funds rate is expected.
+            <br>– <em>Sharpness</em>: how large or decisive that change appears.
+            <br>These factors are weighed equally. The AI analyses the text for language about inflation, employment, growth, and policy guidance, then returns a single number capturing both the urgency and magnitude of potential rate actions.
+            <br>If no new Fed communications are available on a given day, the index re‑evaluates the most recent documents, and the source count reflects the number of documents analysed.
         </p>
         <p>
-            <strong>4. Qualitative label</strong> – the “Hawkish” / “Dovish” label normally follows the smoothed score. However, if the raw score makes a sharp move (≥ 5 points) in the opposite direction, the label switches to reflect the raw score instead — acting as an early warning of a potential trend change.
+            <strong>4. Dual display:</strong> The headline shows <strong>live → 7d avg</strong>:
+            <br>– <strong>Live score</strong> – the immediate, un‑smoothed average of today's document scores. It reacts instantly to new Fed language.
+            <br>– <strong>7d avg</strong> – a 7‑day moving average of the raw scores, designed to filter out noise and reveal the trend.
+            <br>The ▲ / ▼ / — indicator reflects the daily change in the <em>7d avg</em>.
+            <br>Traders and short‑term decision‑makers may find the raw score more useful; longer‑term investors and analysts may prefer the smoothed trend.
         </p>
         <p>
-            <strong>5. Market expectation</strong> – a separate service produces a companion score from the 2‑year Treasury yield (via FRED), the 2y/10y spread (FRED), and the US Dollar Index (Yahoo Finance), displayed below the FTN data on the dashboard.
+            <strong>5. Market expectation:</strong> Below the FTN data, a separate section shows what Treasury markets and the US Dollar Index are collectively pricing about the Fed’s next moves. It uses the 2‑year Treasury yield (via FRED), the 2y/10y spread (FRED), and the US Dollar Index DXY (via Yahoo Finance). It is not part of the document‑driven FTN index – it’s a companion indicator for comparison.
         </p>
         <p>
-            <strong>6. Confidence estimation</strong> – the number of sources and total text volume determine the confidence label.
+            <strong>6. Qualitative label:</strong> The “Hawkish” / “Dovish” label normally follows the <em>7d avg</em>. However, if the raw score makes a sharp move (≥ 5 points) in the opposite direction, the label switches to reflect the raw score instead — acting as an early warning of a potential trend change.
+        </p>
+        <p>
+            <strong>7. Confidence:</strong> HIGH, MEDIUM, or LOW reflects the breadth of sources analysed and the total text volume. HIGH means ≥4 sources and >8,000 characters of Fed text were processed; MEDIUM means ≥2 sources and >3,000 characters; LOW means fewer sources or less text. It indicates how much information the day’s reading is based on, not the accuracy of the AI score.
+        </p>
+        <p>
+            <strong>8. Fed policy rates (flip‑card):</strong> The flip‑card on the FTN tile shows the three key rates the Federal Reserve directly controls: the Fed Funds target range, the Interest on Reserve Balances (IORB) rate, and the Overnight Reverse Repo (ON RRP) rate. These are displayed so you can compare the Fed's actual policy stance with the sentiment expressed in its communications. The data is sourced directly from the Federal Reserve via FRED.
+        </p>
+        <p>
+            <strong>9. Data availability:</strong> When a fresh index computation cannot be retrieved for any reason, the dashboard displays the most recent successfully computed reading, marked as ‘last reading’.
         </p>
     </div>
 
@@ -203,30 +219,52 @@
     <h2 id="pricing">Pricing</h2>
     <div class="card" style="text-align:center;">
         <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; margin:20px 0;">
-            
+
+            <!-- Free Tier -->
             <div style="flex:1; min-width:200px; border:1px solid #2a3342; border-radius:12px; padding:20px;">
                 <h3 style="color:#8b95a5; margin:0 0 10px;">Free</h3>
                 <div style="font-size:32px; font-weight:700; color:#e6e1cf; margin:10px 0;">$0</div>
-                <p style="font-size:14px; color:#8b95a5; margin:10px 0;">Delayed dashboard<br>24‑hour data lag<br>No API access</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Real‑time dashboard</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Full access to score, sources, and market expectation</p>
+                <p style="font-size:14px; color:#5a6577; margin:10px 0;">No API access</p>
             </div>
-            
+
+            <!-- Standard Tier (Launch Special) -->
             <div style="flex:1; min-width:200px; border:2px solid #ffb454; border-radius:12px; padding:20px; background:#1a1f2e;">
                 <div style="display:inline-block; background:#ffb454; color:#0a0e14; font-size:12px; font-weight:700; padding:3px 10px; border-radius:10px; margin-bottom:8px;">LAUNCH SPECIAL</div>
-                <h3 style="color:#ffb454; margin:0 0 10px;">Pro</h3>
-                <div style="font-size:32px; font-weight:700; color:#e6e1cf; margin:10px 0;">$99 🔒<span style="font-size:16px; color:#8b95a5;">/month</span></div>
-                <div style="font-size:16px; font-weight:600; color:#f2c94c; margin:5px 0; background:#2a2a1a; padding:4px 10px; border-radius:8px; display:inline-block;">Standard: $199/month</div>
-                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Real‑time API<br>Live dashboard<br>Backtestable CSV</p>
-                <div style="background:#1a3a2a; color:#4fc97a; font-size:13px; font-weight:600; padding:5px 12px; border-radius:10px; margin-top:10px; display:inline-block;">🔒 First 20 subscribers — lifetime lock</div>
+                <h3 style="color:#ffb454; margin:0 0 10px;">Standard</h3>
+                <div style="font-size:32px; font-weight:700; color:#e6e1cf; margin:10px 0;">$199 <span style="font-size:16px; color:#8b95a5;">/month</span></div>
+                <div style="font-size:14px; color:#f2c94c; margin:5px 0; background:#2a2a1a; padding:4px 10px; border-radius:8px; display:inline-block;">Lifetime lock — first 50 subscribers</div>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Real‑time API access</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Historical data (CSV export)</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Email alerts</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">60‑day free trial — no credit card required</p>
             </div>
-            
+
+            <!-- Standard Tier (Regular) -->
+            <div style="flex:1; min-width:200px; border:1px solid #2a3342; border-radius:12px; padding:20px;">
+                <h3 style="color:#e6e1cf; margin:0 0 10px;">Standard</h3>
+                <div style="font-size:32px; font-weight:700; color:#e6e1cf; margin:10px 0;">$299 <span style="font-size:16px; color:#8b95a5;">/month</span></div>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Real‑time API access</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Historical data (CSV export)</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Email alerts</p>
+                <p style="font-size:14px; color:#5a6577; margin:10px 0;">60‑day free trial available</p>
+            </div>
+
+            <!-- Enterprise Tier -->
             <div style="flex:1; min-width:200px; border:1px solid #2a3342; border-radius:12px; padding:20px;">
                 <h3 style="color:#f2c94c; margin:0 0 10px;">Enterprise</h3>
-                <div style="font-size:32px; font-weight:700; color:#e6e1cf; margin:10px 0;">$999<span style="font-size:16px; color:#8b95a5;">/month</span></div>
-                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Custom integration<br>Dedicated support<br>Co‑branding rights<br>Quarterly briefings</p>
+                <div style="font-size:32px; font-weight:700; color:#e6e1cf; margin:10px 0;">$999 <span style="font-size:16px; color:#8b95a5;">/month</span></div>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Up to 5 users</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">API access</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Co‑branding rights</p>
+                <p style="font-size:14px; color:#b0bdcf; margin:10px 0;">Quarterly briefings</p>
             </div>
-            
+
         </div>
-        <p style="font-size:13px; color:#5a6577;">All plans include access to the live dashboard. Pro and Enterprise include API access. <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">Contact us</a> for trials and inquiries.</p>
+        <p style="font-size:13px; color:#5a6577; margin-top:10px;">
+            <em>Enterprise and custom plans for larger teams are available. <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">Contact us</a> for more information.</em>
+        </p>
     </div>
 
     <div class="cta">
