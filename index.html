@@ -432,10 +432,16 @@
             The live dashboard is available to everyone with a <strong>30‑minute delay</strong>, no login required.<br>
             For <strong>real‑time access</strong>, subscribe below or request a trial key.
         </p>
-        <p style="text-align: center; margin: 20px 0;">
-            <a href="mailto:ftone.index@gmail.com?subject=FTN%20Access%20Request" style="display:inline-block; background:#ffb454; color:#0a0e14; font-weight:700; font-size:14px; padding:10px 24px; border-radius:8px; text-decoration:none;">Request Access →</a>
-        </p>
-        <p class="direct-email" style="text-align:center;">
+
+        <form class="contact-form" id="contact-form" action="mailto:ftone.index@gmail.com" method="get" enctype="text/plain">
+            <input type="text" name="name" id="form-name" placeholder="Your name" required>
+            <input type="email" name="email" id="form-email" placeholder="Your email address" required>
+            <textarea name="message" id="form-message" rows="3" placeholder="I'd like to request a trial key or ask about..."></textarea>
+            <button type="submit" id="form-submit">Send Message</button>
+            <span class="form-note" id="form-status"></span>
+        </form>
+
+        <p class="direct-email">
             Or email us directly: <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>
         </p>
     </div>
