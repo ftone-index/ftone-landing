@@ -460,17 +460,19 @@
                     + '?subject=' + encodeURIComponent(subject)
                     + '&body=' + encodeURIComponent(body);
 
+                // Show fallback link in case mailto is blocked
+                status.innerHTML = 'If your email client doesn\'t open, email us directly at <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">ftone.index@gmail.com</a>';
+                status.style.color = '#8b95a5';
+
                 submitBtn.textContent = 'Opening email...';
                 submitBtn.disabled = true;
-                status.textContent = 'If your email client doesn\'t open, email us directly at ftone.index@gmail.com';
-                status.style.color = '#8b95a5';
 
                 window.location.href = mailto;
 
                 setTimeout(function() {
                     submitBtn.textContent = 'Send Message';
                     submitBtn.disabled = false;
-                }, 2000);
+                }, 3000);
             });
         })();
     </script>
