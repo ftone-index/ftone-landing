@@ -228,7 +228,8 @@
             padding: 4px 12px;
             border-radius: 10px;
             display: inline-block;
-            margin-top: 8px;
+            margin-top: -8px;
+            margin-bottom: 12px;
         }
         .pricing-note {
             font-size: 13px;
@@ -316,7 +317,7 @@
         <br>The ▲ / ▼ / — indicator reflects the daily change in the <em>7d avg</em>, comparing today's 7‑day average (6 past days + today so far) with yesterday's 7‑day average.
         <br>If the <strong>live score</strong> moves <strong>5 points or more</strong> in the <strong>opposite direction</strong> of the <strong>smoothed score's movement</strong> (i.e., the 7d avg trend), a persistent alert (⚠️) appears next to the live score for up to 24 hours — as an early warning of a potential trend change.</p>
 
-        <p><strong>5. Qualitative label:</strong> The “Hawkish” / “Dovish” label shows in which segment of the 0–100 range the 7d avg is anchored:
+        <p><strong>5. Qualitative label:</strong> The "Hawkish" / "Dovish" label shows in which segment of the 0–100 range the 7d avg is anchored:
         <br>– <strong>0–20:</strong> Extremely Dovish
         <br>– <strong>20–40:</strong> Dovish
         <br>– <strong>40–60:</strong> Neutral
@@ -326,28 +327,13 @@
 
         <p><strong>6. Confidence:</strong> HIGH, MEDIUM, or LOW reflects the breadth of sources analysed and the total text volume. HIGH means ≥4 sources and >8,000 characters of Fed text were processed; MEDIUM means ≥2 sources and >3,000 characters; LOW means fewer sources or less text.</p>
 
-        <p><strong>7. Data availability:</strong> When a fresh index computation cannot be retrieved for any reason, the dashboard displays the most recent successfully computed reading, marked as ‘last reading’.</p>
+        <p><strong>7. Data availability:</strong> When a fresh index computation cannot be retrieved for any reason, the dashboard displays the most recent successfully computed reading, marked as 'last reading'.</p>
 
         <p><strong>8. Market expectation:</strong> A separate service produces a companion score from the 2‑year Treasury yield (via FRED), the 2y/10y spread (FRED), and the US Dollar Index (Yahoo Finance), displayed below the FTN data on the dashboard.</p>
 
         <p><strong>9. Fed policy rates (flip‑card):</strong> The flip‑card on the FTN tile shows the three key rates the Federal Reserve directly controls: the Fed Funds target range, the Interest on Reserve Balances (IORB) rate, and the Overnight Reverse Repo (ON RRP) rate. The data is sourced directly from the Federal Reserve via FRED.</p>
 
         <p><strong>10. Inclusive design:</strong> The colour pair used for the live and smoothed scores — a warm purple and a cool blue — is carefully chosen to be clearly distinguishable for users with the most common form of colour vision deficiency (red‑green).</p>
-    </div>
-
-    <!-- -------- CONTACT -------- -->
-    <h2 id="contact">Get Access</h2>
-    <div class="card">
-        <p>
-            The live dashboard is available to everyone with a <strong>30‑minute delay</strong>, no login required.<br>
-            For <strong>real‑time access</strong>, subscribe below or request a trial key.
-        </p>
-        <p style="text-align: center; margin: 20px 0;">
-            <a href="mailto:ftone.index@gmail.com?subject=FTN%20Access%20Request" style="display:inline-block; background:#ffb454; color:#0a0e14; font-weight:700; font-size:14px; padding:10px 24px; border-radius:8px; text-decoration:none;">Request Access →</a>
-        </p>
-        <p class="direct-email" style="text-align:center;">
-            Or email us directly: <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>
-        </p>
     </div>
 
     <!-- -------- PRICING -------- -->
@@ -372,7 +358,7 @@
             <div class="pricing-card highlight">
                 <div class="badge">FOUNDING ANALYST</div>
                 <div class="price">$199 <span>/month</span></div>
-                <div class="lock" style="margin-top:-8px; margin-bottom:12px;">🔒 Lifetime lock</div>
+                <div class="lock">🔒 Lifetime lock</div>
                 <ul>
                     <li>Real‑time dashboard</li>
                     <li>Real‑time API access</li>
@@ -381,6 +367,7 @@
                     <li style="color:#4fc97a;">14‑day free trial</li>
                 </ul>
             </div>
+
             <!-- Standard -->
             <div class="pricing-card">
                 <h3 style="color:#e6e1cf;">Standard</h3>
