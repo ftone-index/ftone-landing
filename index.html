@@ -416,15 +416,6 @@
         <a href="https://ftone-index.github.io/ftone-dashboard/" target="_blank">View the Live Dashboard →</a>
     </div>
 
-    <!-- -------- FOOTER -------- -->
-    <div class="footer">
-        <a href="https://ftone-index.github.io/ftone-dashboard/">Dashboard</a>
-        <a href="https://ftone-index.github.io/ftone-dashboard/legal/terms.html">Terms of Service</a>
-        <a href="https://x.com/FToneIndex">X / Twitter</a>
-        <br><br>
-        © 2026 F‑Tone Index. All rights reserved.
-    </div>
-
     <!-- -------- CONTACT -------- -->
     <h2 id="contact">Get Access</h2>
     <div class="card">
@@ -445,6 +436,42 @@
             Or email us directly: <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>
         </p>
     </div>
+
+    <!-- -------- FOOTER -------- -->
+    <div class="footer">
+        <a href="https://ftone-index.github.io/ftone-dashboard/">Dashboard</a>
+        <a href="https://ftone-index.github.io/ftone-dashboard/legal/terms.html">Terms of Service</a>
+        <a href="https://x.com/FToneIndex">X / Twitter</a>
+        <br><br>
+        © 2026 F‑Tone Index. All rights reserved.
+    </div>
+
+    <!-- -------- CONTACT FORM SCRIPT -------- -->
+    <script>
+        (function() {
+            var form = document.getElementById('contact-form');
+            var status = document.getElementById('form-status');
+            var nameField = document.getElementById('form-name');
+            var emailField = document.getElementById('form-email');
+
+            if (!form || !status) return;
+
+            form.addEventListener('submit', function(e) {
+                var name = nameField.value.trim();
+                var email = emailField.value.trim();
+
+                if (!name || !email) {
+                    e.preventDefault();
+                    status.textContent = 'Please provide your name and email.';
+                    status.style.color = '#e05555';
+                    return;
+                }
+
+                status.textContent = 'Your email client should open. If not, use the direct email link below.';
+                status.style.color = '#8b95a5';
+            });
+        })();
+    </script>
 
 </body>
 </html>
