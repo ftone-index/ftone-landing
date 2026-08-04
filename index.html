@@ -408,10 +408,10 @@
     <div class="card">
         <p>
             The live dashboard is available to everyone with a <strong>30‑minute delay</strong>, no login required.<br>
-            For <strong>real‑time access</strong>, subscribe below or request a trial key.
+            For <strong>real‑time access</strong>, subscribe above or request a trial key.
         </p>
 
-        <form class="contact-form" id="contact-form" action="mailto:ftone.index@gmail.com" method="get" enctype="text/plain">
+        <form class="contact-form" id="contact-form">
             <input type="text" name="name" id="form-name" placeholder="Your name" required>
             <input type="email" name="email" id="form-email" placeholder="Your email address" required>
             <textarea name="message" id="form-message" rows="3" placeholder="I'd like to request a trial key or ask about..."></textarea>
@@ -438,27 +438,59 @@
         (function() {
             var form = document.getElementById('contact-form');
             var status = document.getElementById('form-status');
+            var submitBtn = document.getElementById('form-submit');
             var nameField = document.getElementById('form-name');
             var emailField = document.getElementById('form-email');
+            var messageField = document.getElementById('form-message');
 
             if (!form || !status) return;
 
+            var API_URL = 'https://ftn-index.onrender.com/contact';
+
             form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
                 var name = nameField.value.trim();
                 var email = emailField.value.trim();
+                var message = messageField.value.trim();
 
                 if (!name || !email) {
-                    e.preventDefault();
                     status.textContent = 'Please provide your name and email.';
                     status.style.color = '#e05555';
                     return;
                 }
 
-                status.textContent = 'Your email client should open. If not, use the direct email link below.';
+                submitBtn.textContent = 'Sending...';
+                submitBtn.disabled = true;
+                status.textContent = '';
                 status.style.color = '#8b95a5';
+
+                fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: name, email: email, message: message })
+                })
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.status === 'success') {
+                        status.textContent = data.message;
+                        status.style.color = '#4fc97a';
+                        form.reset();
+                    } else {
+                        status.textContent = data.message;
+                        status.style.color = '#e05555';
+                    }
+                })
+                .catch(function() {
+                    status.innerHTML = 'Something went wrong. Please email us directly at <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">ftone.index@gmail.com</a>';
+                    status.style.color = '#e05555';
+                })
+                .finally(function() {
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                });
             });
         })();
     </script>
-
 </body>
 </html>
