@@ -106,6 +106,58 @@
             letter-spacing: 0.04em;
         }
 
+        /* -------- CONTACT FORM -------- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .contact-form input,
+        .contact-form textarea {
+            background: #0a0e14;
+            border: 1px solid #2a3342;
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: #e6e1cf;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #ffb454;
+        }
+        .contact-form button {
+            background: #ffb454;
+            color: #0a0e14;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
+        .contact-form button:hover {
+            background: #ffc870;
+        }
+        .form-note {
+            font-size: 12px;
+            color: #5a6577;
+            margin-top: 4px;
+        }
+        .direct-email {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #8b95a5;
+        }
+        .direct-email a {
+            color: #58a6ff;
+            text-decoration: none;
+        }
+
         /* -------- PRICING -------- */
         .pricing-grid {
             display: flex;
@@ -198,7 +250,7 @@
 
     <div class="logo">F‑Tone (FTN)</div>
     <h1>AI‑Powered Federal Reserve Sentiment Index</h1>
-    <p class="subtitle">Daily hawkish‑dovish gauge on a 0–100 scale. Transparent. Real‑time. Free.</p>
+    <p class="subtitle">Daily hawkish‑dovish gauge on a 0–100 scale. Transparent. 30‑minute delayed. Free.</p>
 
     <div class="quick-links">
         <a href="#what-is-ftn">What is FTN?</a>
@@ -242,7 +294,7 @@
         <li><strong>Transparent methodology</strong> – every reading is linked to the source documents that produced it, with speaker attribution.</li>
         <li><strong>Confidence‑weighted</strong> – HIGH / MEDIUM / LOW based on the breadth of sources analysed.</li>
         <li><strong>No black boxes</strong> – the methodology is fully public and the raw API is accessible to subscribers.</li>
-        <li><strong>Always fresh</strong> – recalculated with every request, so you always see a real‑time assessment.</li>
+        <li><strong>Always fresh</strong> – recalculated with every request, so you always see a current assessment.</li>
         <li><strong>Built for professionals</strong> – designed for journalists, investors, fund managers, analysts, and government institutions (central banks, planning ministries, and policy bodies) who need a quick, objective Fed sentiment read.</li>
     </ul>
 
@@ -287,16 +339,20 @@
     <h2 id="contact">Get Access</h2>
     <div class="card">
         <p>
-            The live dashboard is available to everyone, no login required.<br>
-            A <strong>free JSON API</strong> is also available for non‑commercial use.
+            The live dashboard is available to everyone with a <strong>30‑minute delay</strong>, no login required.<br>
+            For <strong>real‑time access</strong>, subscribe below or request a trial key.
         </p>
-        <p>
-            For API access, trial subscriptions, or press inquiries, contact us directly:
-        </p>
-        <p style="text-align: center; margin: 20px 0;">
-            <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff; font-weight:600; text-decoration:none;">ftone.index@gmail.com</a>
-            &nbsp;|&nbsp;
-            <a href="https://x.com/FToneIndex" target="_blank" style="color:#58a6ff; font-weight:600; text-decoration:none;">@FToneIndex</a>
+
+        <div class="contact-form" id="contact-form">
+            <input type="text" id="form-name" placeholder="Your name" required>
+            <input type="email" id="form-email" placeholder="Your email address" required>
+            <textarea id="form-message" rows="3" placeholder="I'd like to request a trial key or ask about..."></textarea>
+            <button type="submit" id="form-submit">Send Message</button>
+            <span class="form-note" id="form-status"></span>
+        </div>
+
+        <p class="direct-email">
+            Or email us directly: <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>
         </p>
     </div>
 
@@ -311,36 +367,38 @@
                 <h3 style="color:#8b95a5;">Free</h3>
                 <div class="price">$0</div>
                 <ul>
-                    <li>Real‑time dashboard</li>
+                    <li>30‑minute delayed dashboard</li>
                     <li>Full access to score, sources, and market expectation</li>
                     <li style="color:#5a6577;">No API access</li>
+                    <li style="color:#5a6577;">No email alerts</li>
                 </ul>
             </div>
 
-            <!-- Standard (Launch Special) -->
+            <!-- Founding Analyst -->
             <div class="pricing-card highlight">
-                <div class="badge">LAUNCH SPECIAL</div>
-                <h3 style="color:#ffb454;">Standard</h3>
+                <div class="badge">FOUNDING ANALYST</div>
+                <h3 style="color:#ffb454;">Founding Analyst</h3>
                 <div class="price">$199 <span>/month</span></div>
-                <div style="font-size:14px; color:#f2c94c; background:#2a2a1a; padding:4px 10px; border-radius:8px; display:inline-block;">Lifetime lock — first 50 subscribers</div>
+                <div class="lock">🔒 Lifetime lock — early members only</div>
                 <ul>
+                    <li>Real‑time dashboard</li>
                     <li>Real‑time API access</li>
                     <li>Historical data (CSV export)</li>
                     <li>Email alerts</li>
-                    <li style="color:#4fc97a;">60‑day free trial</li>
+                    <li style="color:#4fc97a;">14‑day free trial</li>
                 </ul>
-                <div class="lock">🔒 First 20 subscribers — lifetime lock</div>
             </div>
 
-            <!-- Standard (Regular) -->
+            <!-- Standard -->
             <div class="pricing-card">
                 <h3 style="color:#e6e1cf;">Standard</h3>
                 <div class="price">$299 <span>/month</span></div>
                 <ul>
+                    <li>Real‑time dashboard</li>
                     <li>Real‑time API access</li>
                     <li>Historical data (CSV export)</li>
                     <li>Email alerts</li>
-                    <li style="color:#5a6577;">60‑day free trial available</li>
+                    <li style="color:#5a6577;">14‑day trial available</li>
                 </ul>
             </div>
 
@@ -349,17 +407,15 @@
                 <h3 style="color:#f2c94c;">Enterprise</h3>
                 <div class="price">$999 <span>/month</span></div>
                 <ul>
-                    <li>Up to 5 users</li>
-                    <li>API access</li>
+                    <li>API access for up to 5 users</li>
                     <li>Co‑branding rights</li>
-                    <li>Quarterly briefings</li>
                 </ul>
             </div>
 
         </div>
 
         <p class="pricing-note">
-            <em>Enterprise and custom plans for larger teams are available. <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">Contact us</a> for more information.</em>
+            <em>Enterprise and custom plans for larger teams are available. <a href="mailto:ftone.index@gmail.com">Contact us</a> for more information.</em>
         </p>
     </div>
 
@@ -376,6 +432,49 @@
         <br><br>
         © 2026 F‑Tone Index. All rights reserved.
     </div>
+
+    <!-- -------- CONTACT FORM SCRIPT -------- -->
+    <script>
+        (function() {
+            var form = document.getElementById('contact-form');
+            var status = document.getElementById('form-status');
+            var submitBtn = document.getElementById('form-submit');
+
+            if (!form || !status || !submitBtn) return;
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var name = document.getElementById('form-name').value.trim();
+                var email = document.getElementById('form-email').value.trim();
+                var message = document.getElementById('form-message').value.trim();
+
+                if (!name || !email) {
+                    status.textContent = 'Please provide your name and email.';
+                    status.style.color = '#e05555';
+                    return;
+                }
+
+                var subject = 'FTN Contact: ' + name;
+                var body = 'From: ' + name + ' (' + email + ')\n\n' + (message || '(No message provided)');
+                var mailto = 'mailto:ftone.index@gmail.com'
+                    + '?subject=' + encodeURIComponent(subject)
+                    + '&body=' + encodeURIComponent(body);
+
+                submitBtn.textContent = 'Opening email...';
+                submitBtn.disabled = true;
+                status.textContent = 'If your email client doesn\'t open, email us directly at ftone.index@gmail.com';
+                status.style.color = '#8b95a5';
+
+                window.location.href = mailto;
+
+                setTimeout(function() {
+                    submitBtn.textContent = 'Send Message';
+                    submitBtn.disabled = false;
+                }, 2000);
+            });
+        })();
+    </script>
 
 </body>
 </html>
