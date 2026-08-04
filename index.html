@@ -425,50 +425,20 @@
         © 2026 F‑Tone Index. All rights reserved.
     </div>
 
-    <!-- -------- CONTACT FORM SCRIPT -------- -->
-    <script>
-        (function() {
-            var form = document.getElementById('contact-form');
-            var status = document.getElementById('form-status');
-            var submitBtn = document.getElementById('form-submit');
-
-            if (!form || !status || !submitBtn) return;
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                var name = document.getElementById('form-name').value.trim();
-                var email = document.getElementById('form-email').value.trim();
-                var message = document.getElementById('form-message').value.trim();
-
-                if (!name || !email) {
-                    status.textContent = 'Please provide your name and email.';
-                    status.style.color = '#e05555';
-                    return;
-                }
-
-                var subject = 'FTN Contact: ' + name;
-                var body = 'From: ' + name + ' (' + email + ')\n\n' + (message || '(No message provided)');
-                var mailto = 'mailto:ftone.index@gmail.com'
-                    + '?subject=' + encodeURIComponent(subject)
-                    + '&body=' + encodeURIComponent(body);
-
-                // Show fallback link in case mailto is blocked
-                status.innerHTML = 'If your email client doesn\'t open, email us directly at <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">ftone.index@gmail.com</a>';
-                status.style.color = '#8b95a5';
-
-                submitBtn.textContent = 'Opening email...';
-                submitBtn.disabled = true;
-
-                window.location.href = mailto;
-
-                setTimeout(function() {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                }, 3000);
-            });
-        })();
-    </script>
+    <!-- -------- CONTACT -------- -->
+    <h2 id="contact">Get Access</h2>
+    <div class="card">
+        <p>
+            The live dashboard is available to everyone with a <strong>30‑minute delay</strong>, no login required.<br>
+            For <strong>real‑time access</strong>, subscribe below or request a trial key.
+        </p>
+        <p style="text-align: center; margin: 20px 0;">
+            <a href="mailto:ftone.index@gmail.com?subject=FTN%20Access%20Request" style="display:inline-block; background:#ffb454; color:#0a0e14; font-weight:700; font-size:14px; padding:10px 24px; border-radius:8px; text-decoration:none;">Request Access →</a>
+        </p>
+        <p class="direct-email" style="text-align:center;">
+            Or email us directly: <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>
+        </p>
+    </div>
 
 </body>
 </html>
