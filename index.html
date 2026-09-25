@@ -104,8 +104,21 @@ a:hover { color: var(--gold-pale); }
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.nav-links a { color: var(--text-secondary); }
+.nav-links a { color: var(--text-secondary); transition: color 140ms ease; }
 .nav-links a:hover { color: var(--gold); }
+.nav-links a.active {
+  color: var(--gold);
+  position: relative;
+}
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--gold);
+}
 @media (max-width: 640px) {
   .nav-links { display: none; }
 }
@@ -666,10 +679,11 @@ p strong { color: var(--text-primary); font-weight: 600; }
       FCI
       <span>Federal Reserve Credibility Index</span>
     </div>
-    <nav class="nav-links">
-      <a href="#methodology-fci">Methodology</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#get-access">Get access</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#methodology" data-nav="methodology">Methodology</a>
+      <a href="#pricing" data-nav="pricing">Pricing</a>
+      <a href="#get-access" data-nav="get-access">Get access</a>
+      <a href="#terms" data-nav="terms">Legal</a>
     </nav>
   </div>
 </header>
