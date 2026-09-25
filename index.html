@@ -110,6 +110,64 @@ a:hover { color: var(--gold-pale); }
   .nav-links { display: none; }
 }
 
+/* ---------------- TRANSITION BANNER ---------------- */
+.transition-banner {
+  background: var(--bg-card-soft);
+  border-bottom: 1px solid var(--rule);
+  border-left: 3px solid var(--gold-muted);
+  padding: var(--space-2) 0;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.transition-banner .container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.transition-banner .banner-text {
+  flex: 1;
+  line-height: 1.5;
+}
+.transition-banner .banner-text strong {
+  color: var(--gold-pale);
+  font-weight: 600;
+}
+.transition-banner .banner-text a {
+  color: var(--gold);
+  font-weight: 600;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+.transition-banner .banner-text a:hover {
+  color: var(--gold-pale);
+}
+.transition-banner .banner-close {
+  background: none;
+  border: none;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  line-height: 1;
+  transition: color 140ms ease, background 140ms ease;
+  flex-shrink: 0;
+}
+.transition-banner .banner-close:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.05);
+}
+.transition-banner.hidden { display: none; }
+
+@media (max-width: 640px) {
+  .transition-banner .banner-text a {
+    display: block;
+    margin-left: 0;
+    margin-top: 2px;
+  }
+}
+  
 /* ---------------- HERO ---------------- */
 .hero {
   padding: var(--space-8) 0 var(--space-7);
@@ -585,6 +643,17 @@ p strong { color: var(--text-primary); font-weight: 600; }
 </head>
 <body>
 
+<!-- ============================ TRANSITION BANNER ============================ -->
+<div class="transition-banner" id="transitionBanner">
+  <div class="container">
+    <span class="banner-text">
+      <strong>FTN is now part of FCI</strong> — a broader credibility cockpit for the U.S. monetary system. Your access carries over.
+      <a href="https://ftone-dashboard-gold-preview.netlify.app/" target="_blank" rel="noopener">View the new dashboard →</a>
+    </span>
+    <button class="banner-close" aria-label="Dismiss" id="bannerClose">✕</button>
+  </div>
+</div>
+  
 <!-- ============================ HEADER ============================ -->
 <header class="site-header">
   <div class="container">
@@ -1078,6 +1147,22 @@ p strong { color: var(--text-primary); font-weight: 600; }
 </footer>
 
 <script>
+
+/* Transition banner dismissal — remembers choice for the browser */
+(function() {
+  var banner = document.getElementById('transitionBanner');
+  var closeBtn = document.getElementById('bannerClose');
+  if (!banner || !closeBtn) return;
+  if (localStorage.getItem('fci-transition-banner-dismissed') === '1') {
+    banner.classList.add('hidden');
+    return;
+  }
+  closeBtn.addEventListener('click', function() {
+    banner.classList.add('hidden');
+    try { localStorage.setItem('fci-transition-banner-dismissed', '1'); } catch(e) {}
+  });
+})();
+  
 (function() {
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
