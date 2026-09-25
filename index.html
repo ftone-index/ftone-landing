@@ -52,8 +52,10 @@ body {
   font-family: var(--font);
   font-size: 15px;
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  padding: 0 var(--space-4);
+  overflow-x: hidden;
 }
 
 a { color: var(--gold); text-decoration: none; transition: color 140ms ease; }
@@ -283,7 +285,8 @@ h3 {
 }
 p {
   color: var(--text-secondary);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-5);
+  max-width: 62ch;
 }
 p strong { color: var(--text-primary); font-weight: 600; }
 
@@ -1195,7 +1198,49 @@ p strong { color: var(--text-primary); font-weight: 600; }
     try { localStorage.setItem('fci-transition-banner-dismissed', '1'); } catch(e) {}
   });
 })();
-  
+
+/* Nav link active state — tracks scroll position against section anchors */
+(function() {
+  var links = document.querySelectorAll('.nav-links a[data-nav]');
+  if (!links.length) return;
+
+  var sections = [];
+  links.forEach(function(link) {
+    var id = link.getAttribute('href').replace('#', '');
+    var el = document.getElementById(id);
+    if (el) sections.push({ id: id, el: el, link: link });
+  });
+
+  function updateActive() {
+    var scrollY = window.scrollY || window.pageYOffset;
+    var offset = 120;   // accounts for sticky header
+    var current = null;
+
+    sections.forEach(function(s) {
+      var top = s.el.offsetTop;
+      if (scrollY >= top - offset) {
+        current = s;
+      }
+    });
+
+    links.forEach(function(l) { l.classList.remove('active'); });
+    if (current) current.link.classList.add('active');
+  }
+
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        updateActive();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  updateActive();
+})();
+
 (function() {
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
