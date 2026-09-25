@@ -1,495 +1,1140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>F‑Tone (FTN) – AI‑Powered Fed Sentiment Index</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #0a0e14;
-            color: #e6e1cf;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.6;
-            padding: 40px 20px;
-            max-width: 720px;
-            margin: 0 auto;
-        }
-        h1 {
-            color: #ffb454;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        .subtitle {
-            color: #8b95a5;
-            font-size: 16px;
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #f2c94c;
-            font-size: 20px;
-            margin: 40px 0 12px;
-        }
-        p, li {
-            color: #b0bdcf;
-            font-size: 15px;
-            margin-bottom: 12px;
-        }
-        .card {
-            background: #131820;
-            border: 1px solid #2a3342;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-        .features {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .features li {
-            margin-bottom: 10px;
-            padding-left: 20px;
-            position: relative;
-        }
-        .features li::before {
-            content: "▹";
-            color: #ffb454;
-            position: absolute;
-            left: 0;
-        }
-        .cta {
-            margin: 40px 0;
-            text-align: center;
-        }
-        .cta a {
-            display: inline-block;
-            background: #ffb454;
-            color: #0a0e14;
-            font-weight: 700;
-            font-size: 16px;
-            padding: 12px 28px;
-            border-radius: 8px;
-            text-decoration: none;
-        }
-        .cta a:hover {
-            background: #ffc870;
-        }
-        .quick-links {
-            text-align: center;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-        .quick-links a {
-            color: #58a6ff;
-            text-decoration: none;
-            margin: 0 12px;
-        }
-        .quick-links a:hover { text-decoration: underline; }
-        .footer {
-            border-top: 1px solid #1e2733;
-            padding-top: 20px;
-            margin-top: 40px;
-            font-size: 13px;
-            color: #5a6577;
-        }
-        .footer a {
-            color: #58a6ff;
-            text-decoration: none;
-            margin-right: 15px;
-        }
-        .footer a:hover { text-decoration: underline; }
-        .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: #ffb454;
-            letter-spacing: 0.04em;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FCI — Federal Reserve Credibility Index</title>
+<meta name="description" content="A real-time credibility cockpit for the U.S. monetary system. Composite score, four analytical inputs, full transparency.">
 
-        /* -------- CONTACT FORM -------- */
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .contact-form input,
-        .contact-form textarea {
-            background: #0a0e14;
-            border: 1px solid #2a3342;
-            border-radius: 8px;
-            padding: 10px 14px;
-            color: #e6e1cf;
-            font-family: inherit;
-            font-size: 14px;
-            resize: vertical;
-        }
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            outline: none;
-            border-color: #ffb454;
-        }
-        .contact-form button {
-            background: #ffb454;
-            color: #0a0e14;
-            font-weight: 700;
-            font-size: 14px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            align-self: flex-start;
-        }
-        .contact-form button:hover {
-            background: #ffc870;
-        }
-        .form-note {
-            font-size: 12px;
-            color: #5a6577;
-            margin-top: 4px;
-        }
-        .direct-email {
-            margin-top: 16px;
-            font-size: 14px;
-            color: #8b95a5;
-        }
-        .direct-email a {
-            color: #58a6ff;
-            text-decoration: none;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        /* -------- PRICING -------- */
-        .pricing-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .pricing-card {
-            flex: 1;
-            min-width: 180px;
-            border: 1px solid #2a3342;
-            border-radius: 12px;
-            padding: 20px;
-            background: #131820;
-        }
-        .pricing-card.highlight {
-            border: 2px solid #ffb454;
-            background: #1a1f2e;
-        }
-        .pricing-card h3 {
-            font-size: 16px;
-            margin: 0 0 6px;
-        }
-        .pricing-card .price {
-            font-size: 32px;
-            font-weight: 700;
-            color: #e6e1cf;
-            margin: 10px 0;
-        }
-        .pricing-card .price span {
-            font-size: 16px;
-            color: #8b95a5;
-        }
-        .pricing-card ul {
-            list-style: none;
-            padding: 0;
-            font-size: 14px;
-            color: #b0bdcf;
-            margin: 10px 0;
-        }
-        .pricing-card ul li {
-            margin-bottom: 6px;
-            padding-left: 16px;
-            position: relative;
-        }
-        .pricing-card ul li::before {
-            content: "✓";
-            color: #4fc97a;
-            position: absolute;
-            left: 0;
-        }
-        .pricing-card .badge {
-            display: inline-block;
-            background: #ffb454;
-            color: #0a0e14;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 10px;
-            margin-bottom: 8px;
-        }
-        .pricing-card .lock {
-            background: #1a3a2a;
-            color: #4fc97a;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 4px 12px;
-            border-radius: 10px;
-            display: inline-block;
-            margin-top: -8px;
-            margin-bottom: 12px;
-        }
-        .pricing-note {
-            font-size: 13px;
-            color: #5a6577;
-            margin-top: 10px;
-        }
-        .pricing-note a {
-            color: #58a6ff;
-        }
+<style>
+:root {
+  --bg:            #0B1A12;
+  --bg-card:       #0F2117;
+  --bg-card-soft:  #0D1B14;
+  --rule:          #1E3428;
+  --rule-strong:   #2A4636;
 
-        @media (max-width: 480px) {
-            body { padding: 20px 16px; }
-            h1 { font-size: 24px; }
-            .pricing-card { min-width: 100%; }
-        }
-    </style>
+  --text-primary:  #EDEAE0;
+  --text-secondary:#A8B2AA;
+  --text-tertiary: #7E8A82;
+
+  --silver:        #DEE3E6;
+  --gold:          #D4AF37;
+  --gold-pale:     #ebd6a0;
+  --gold-muted:    #9A7B2D;
+  --pale-yellow:   #F0E0B0;
+  --cyan:          #8AB4C8;
+  --red:           #D9534F;
+
+  --font: 'Inter', system-ui, -apple-system, sans-serif;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-pill: 999px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--gold); text-decoration: none; transition: color 140ms ease; }
+a:hover { color: var(--gold-pale); }
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+/* ---------------- HEADER ---------------- */
+.site-header {
+  border-bottom: 1px solid var(--rule);
+  padding: var(--space-4) 0;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 50;
+}
+.site-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+}
+.logo {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--silver);
+  line-height: 1.3;
+}
+.logo span {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: var(--space-4);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.nav-links a { color: var(--text-secondary); }
+.nav-links a:hover { color: var(--gold); }
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+}
+
+/* ---------------- HERO ---------------- */
+.hero {
+  padding: var(--space-8) 0 var(--space-7);
+  border-bottom: 1px solid var(--rule);
+}
+.hero h1 {
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+.hero h1 .accent {
+  color: var(--gold-pale);
+  text-shadow: 0 0 14px rgba(235,214,160,0.20);
+}
+.hero .subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  max-width: 640px;
+  margin-bottom: var(--space-6);
+}
+.hero .cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: #0A0F0C;
+  padding: 12px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: background 140ms ease, transform 140ms ease;
+}
+.btn-primary:hover {
+  background: var(--gold-pale);
+  color: #0A0F0C;
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  display: inline-block;
+  color: var(--gold-pale);
+  padding: 12px 22px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color 140ms ease, color 140ms ease;
+}
+.btn-secondary:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+@media (max-width: 640px) {
+  .hero { padding: var(--space-6) 0 var(--space-5); }
+  .hero h1 { font-size: 28px; }
+  .hero .subtitle { font-size: 15px; }
+}
+
+/* ---------------- SECTIONS ---------------- */
+section {
+  padding: var(--space-7) 0;
+  border-bottom: 1px solid var(--rule);
+}
+section:last-of-type { border-bottom: none; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-2);
+}
+h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: var(--space-5);
+}
+h3 {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+p strong { color: var(--text-primary); font-weight: 600; }
+
+@media (max-width: 640px) {
+  h2 { font-size: 22px; }
+}
+
+/* ---------------- WHAT IS FCI ---------------- */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+  margin-top: var(--space-5);
+}
+.intro-grid > div {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-5);
+}
+.intro-grid h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  margin-bottom: var(--space-3);
+}
+.intro-grid ul {
+  list-style: none;
+  padding: 0;
+}
+.intro-grid li {
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.intro-grid li::before {
+  content: '·';
+  color: var(--gold);
+  position: absolute;
+  left: 4px;
+  font-weight: 700;
+}
+@media (max-width: 720px) {
+  .intro-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------------- METHODOLOGY ---------------- */
+.methodology-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--rule);
+}
+.methodology-nav a {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  transition: color 140ms ease, border-color 140ms ease;
+}
+.methodology-nav a:hover {
+  color: var(--gold);
+  border-color: var(--gold-muted);
+}
+
+.method-block {
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.method-block:last-child { border-bottom: none; }
+.method-block .method-anchor {
+  scroll-margin-top: 80px;
+}
+.method-block h2 {
+  font-size: 22px;
+  margin-bottom: var(--space-4);
+}
+.method-block h4 {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-3);
+}
+
+.formula {
+  display: block;
+  background: var(--bg-card-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--gold-muted);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  font-size: 13px;
+  color: var(--gold-pale);
+  margin: var(--space-3) 0 var(--space-4);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.weights-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-4) 0;
+  font-size: 14px;
+}
+.weights-table th,
+.weights-table td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-secondary);
+  vertical-align: top;
+}
+.weights-table th {
+  color: var(--text-tertiary);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.weights-table td strong { color: var(--text-primary); }
+.weights-table td.num {
+  color: var(--gold-pale);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.bands {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-4) 0;
+  font-size: 14px;
+}
+.bands li {
+  display: flex;
+  gap: var(--space-3);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-secondary);
+}
+.bands li:last-child { border-bottom: none; }
+.bands li .band {
+  flex: 0 0 90px;
+  color: var(--gold-pale);
+  font-weight: 600;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 13px;
+}
+
+.source-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-4) 0;
+  font-size: 14px;
+}
+.source-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--text-secondary);
+}
+.source-list li:last-child { border-bottom: none; }
+.source-list li strong {
+  display: inline-block;
+  min-width: 180px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ---------------- PRICING ---------------- */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+.pricing-card {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+}
+.pricing-card.highlight {
+  border: 2px solid var(--gold-muted);
+  background: var(--bg-card);
+}
+.pricing-card .badge-pill {
+  display: inline-block;
+  background: var(--gold-muted);
+  color: #0A0F0C;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-3);
+  align-self: flex-start;
+}
+.pricing-card h3 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-2);
+}
+.pricing-card .price {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: var(--space-1);
+}
+.pricing-card .price span {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  letter-spacing: 0.04em;
+}
+.pricing-card .pricing-note {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: var(--space-4);
+}
+.pricing-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+.pricing-card li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+.pricing-card li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 12px;
+}
+.pricing-card li.muted {
+  color: var(--text-tertiary);
+}
+.pricing-card li.muted::before {
+  content: '—';
+  color: var(--rule-strong);
+}
+.pricing-footnote {
+  margin-top: var(--space-5);
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+@media (max-width: 820px) {
+  .pricing-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------------- CONTACT FORM ---------------- */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  max-width: 520px;
+}
+.contact-form input,
+.contact-form textarea {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  transition: border-color 140ms ease;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--gold-muted);
+}
+.contact-form button {
+  background: var(--gold);
+  color: #0A0F0C;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 12px 22px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background 140ms ease;
+}
+.contact-form button:hover { background: var(--gold-pale); }
+.contact-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.form-status {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  min-height: 18px;
+}
+.direct-email {
+  margin-top: var(--space-4);
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
+/* ---------------- TERMS ---------------- */
+.terms-block h3 {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-2);
+}
+.terms-block p {
+  font-size: 14px;
+  margin-bottom: var(--space-3);
+}
+.terms-block p strong { color: var(--text-primary); }
+
+/* ---------------- FOOTER ---------------- */
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding: var(--space-5) 0 var(--space-6);
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+.site-footer a {
+  color: var(--text-tertiary);
+  margin-right: var(--space-4);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+.site-footer a:hover { color: var(--gold); }
+</style>
 </head>
 <body>
 
-    <div class="logo">F‑Tone (FTN)</div>
-    <h1>AI‑Powered Federal Reserve Sentiment Index</h1>
-    <p class="subtitle">Daily hawkish‑dovish gauge on a 0–100 scale. Transparent. 30‑minute delayed. Free.</p>
+<!-- ============================ HEADER ============================ -->
+<header class="site-header">
+  <div class="container">
+    <div class="logo">
+      FCI
+      <span>Federal Reserve Credibility Index</span>
+    </div>
+    <nav class="nav-links">
+      <a href="#methodology-fci">Methodology</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#get-access">Get access</a>
+    </nav>
+  </div>
+</header>
 
-    <div class="quick-links">
-        <a href="#what-is-ftn">What is FTN?</a>
-        <a href="#why-ftn">Why FTN?</a>
-        <a href="#methodology">Methodology</a>
-        <a href="#pricing">Pricing ↓</a>
-        <a href="#contact">Contact</a>
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="container">
+    <h1>A real-time <span class="accent">credibility cockpit</span><br>for the U.S. monetary system.</h1>
+    <p class="subtitle">
+      The Federal Reserve Credibility Index (FCI) combines four analytical inputs — Fed communication,
+      market pricing, sovereign gold backing, and alignment — into a single composite score.
+      Every number is traceable to its source. No black boxes.
+    </p>
+    <div class="cta-row">
+      <a class="btn-primary" href="https://ftone-dashboard-gold-preview.netlify.app/" target="_blank" rel="noopener">View the live dashboard →</a>
+      <a class="btn-secondary" href="#methodology-fci">Read the methodology</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WHAT IS FCI ============================ -->
+<section>
+  <div class="container">
+    <div class="section-label">What it is</div>
+    <h2>A composite reading of monetary credibility, updated continuously.</h2>
+
+    <p>
+      The FCI answers one question: <strong>how credible is the U.S. monetary system right now?</strong>
+      It draws on four independent signals — what the Fed communicates, what markets price,
+      what the sovereign holds in hard assets, and how aligned those signals are — and folds them
+      into a single 0–100 score. A higher score means higher credibility. A lower score means the system
+      is losing the trust of at least one major constituency.
+    </p>
+
+    <div class="intro-grid">
+      <div>
+        <h3>The four inputs</h3>
+        <ul>
+          <li><strong>Fed Sentiment (FTN)</strong> — AI-scored Federal Reserve documents</li>
+          <li><strong>Market Pricing</strong> — 2Y and 10Y Treasury yields, US Dollar Index</li>
+          <li><strong>Gold Anchor</strong> — U.S. official gold stock vs. Fed liabilities and federal debt</li>
+          <li><strong>Alignment</strong> — a diagnostic comparison of FTN and market pricing</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Who it is for</h3>
+        <ul>
+          <li>Macro portfolio managers and CIOs</li>
+          <li>Central bank and sovereign wealth analysts</li>
+          <li>Journalists covering monetary policy</li>
+          <li>Any professional who needs a fast, transparent read on Fed credibility</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ METHODOLOGY ============================ -->
+<section id="methodology">
+  <div class="container">
+    <div class="section-label">Methodology</div>
+    <h2>How the FCI is built.</h2>
+
+    <nav class="methodology-nav">
+      <a href="#methodology-fci">FCI composite</a>
+      <a href="#methodology-ftn">Fed Sentiment</a>
+      <a href="#methodology-market">Market Pricing</a>
+      <a href="#methodology-gold">Gold Anchor</a>
+      <a href="#methodology-alignment">Alignment</a>
+      <a href="#methodology-sources">Sources</a>
+    </nav>
+
+    <!-- -------- FCI -------- -->
+    <div class="method-block">
+      <div class="method-anchor" id="methodology-fci"></div>
+      <h2>FCI — Federal Reserve Credibility Index</h2>
+      <p>
+        The FCI is a composite 0–100 score measuring the market's real-time assessment of U.S. monetary credibility.
+        <strong>100 = highest credibility. 0 = severe credibility stress.</strong>
+        The composite combines two layers: a <em>Core</em> layer capturing Fed stance and market pricing,
+        and a <em>Sovereign</em> layer capturing hard-asset backing of the monetary and fiscal system.
+      </p>
+
+      <h4>Composite formula</h4>
+      <code class="formula">FCI = 0.6 × Core + 0.4 × Sovereign</code>
+
+      <h4>Weights</h4>
+      <table class="weights-table">
+        <thead>
+          <tr><th>Layer</th><th>Component</th><th class="num">Weight</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Core</strong> (60% of FCI)</td>
+            <td>Fed Stance</td>
+            <td class="num">30%</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Market Pricing</td>
+            <td class="num">30%</td>
+          </tr>
+          <tr>
+            <td><strong>Sovereign</strong> (40% of FCI)</td>
+            <td>Monetary Base Gold Cover</td>
+            <td class="num">20%</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Sovereign Debt Gold Cover</td>
+            <td class="num">20%</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>Fed Stance sub-formula</h4>
+      <code class="formula">Fed Stance = 0.7 × FTN + 0.3 × Policy Rate Calibration</code>
+      <code class="formula">Policy Rate Calibration = 50 − 25 × (Real Policy Rate − Neutral Rate)</code>
+      <code class="formula">Real Policy Rate = Fed Funds − Core PCE YoY (neutral rate = 0.5%)</code>
+
+      <h4>Interpretation bands</h4>
+      <ul class="bands">
+        <li><span class="band">80–100</span> High credibility</li>
+        <li><span class="band">60–80</span> Moderate credibility</li>
+        <li><span class="band">40–60</span> Mixed credibility</li>
+        <li><span class="band">20–40</span> Low credibility</li>
+        <li><span class="band">0–20</span> Stressed</li>
+      </ul>
     </div>
 
-    <!-- -------- WHAT IS FTN -------- -->
-    <div class="card" id="what-is-ftn">
-        <h2>What is FTN?</h2>
-        <p>
-            The F‑Tone Index measures the tone of Federal Reserve communications —
-            speeches, FOMC statements, and minutes, plus regional Fed speeches, testimony,
-            and Fed blog posts — using artificial intelligence.
-            On every visit, our system reads the latest available primary sources,
-            assigns a hawkish/dovish score to each, and publishes a fresh 0–100 reading.
-        </p>
-        <p>
-            The dashboard displays <strong>two values, in the format 73.6 → 71.2</strong>:
-            the <strong>live score</strong> (the simple average of all individual document scores from the current analysis)
-            and the <strong>smoothed 7‑day average</strong>, so you can see both the immediate
-            reaction and the underlying trend.
-        </p>
-        <p>
-            A companion <strong>Market Expectation</strong> score, produced by a separate service,
-            combines the 2‑year Treasury yield (via FRED), the 2y/10y spread (FRED), and
-            the US Dollar Index (DXY, via Yahoo Finance) to show what markets are collectively
-            pricing about the Fed's next moves.
-        </p>
-        <p>
-            On the back of the FTN tile, the index also shows the <strong>current policy rates</strong>
-            directly controlled by the Fed.
-        </p>
+    <!-- -------- FTN -------- -->
+    <div class="method-block">
+      <div class="method-anchor" id="methodology-ftn"></div>
+      <h2>Fed Sentiment — the FTN component</h2>
+      <p>
+        The Fed Sentiment component measures the tone of Federal Reserve communication using AI analysis
+        of official documents. It is the primary "what the Fed says" input to the credibility composite.
+      </p>
+
+      <h4>Sources</h4>
+      <p>Every Fed communication is processed the moment it is published, from six categories:</p>
+      <ul class="source-list">
+        <li><strong>FOMC statements</strong> Federal Reserve Board press releases</li>
+        <li><strong>FOMC minutes</strong> Published three weeks after each meeting</li>
+        <li><strong>Fed speeches</strong> Board governors and regional presidents</li>
+        <li><strong>Regional Fed speeches</strong> Federal Reserve Bank of New York</li>
+        <li><strong>Congressional testimony</strong> Fed Chair and governors</li>
+        <li><strong>Liberty Street Economics</strong> Federal Reserve Bank of New York research</li>
+      </ul>
+
+      <h4>Scoring</h4>
+      <p>
+        Each document is scored by AI on a 0–100 scale. <strong>0 = extremely dovish</strong> (signalling rate cuts or easing).
+        <strong>100 = extremely hawkish</strong> (signalling rate hikes or tightening). The score reflects two factors,
+        weighed equally: <em>imminence</em> — how soon a change to the federal funds rate is expected — and
+        <em>sharpness</em> — how large or decisive that change appears.
+      </p>
+      <p>
+        The FTN score is the smoothed 7-day average of daily document scores. The live score, shown alongside,
+        reflects today's documents only.
+      </p>
+
+      <h4>Confidence indicator</h4>
+      <p>
+        Every reading carries a confidence label reflecting the breadth and volume of source material:
+      </p>
+      <ul class="source-list">
+        <li><strong>HIGH</strong> Four or more sources, more than 8,000 characters</li>
+        <li><strong>MEDIUM</strong> Two or more sources, more than 3,000 characters</li>
+        <li><strong>LOW</strong> Fewer sources or less text</li>
+      </ul>
+
+      <h4>Radical transparency</h4>
+      <p>
+        Every score is traceable to the exact source document that produced it. Every document is linked,
+        timestamped, and attributed. No black boxes. No hidden logic.
+      </p>
     </div>
 
-    <!-- -------- WHY FTN -------- -->
-    <h2 id="why-ftn">Why FTN?</h2>
-    <ul class="features">
-        <li><strong>Transparent methodology</strong> – every reading is linked to the source documents that produced it, with speaker attribution.</li>
-        <li><strong>Confidence‑weighted</strong> – HIGH / MEDIUM / LOW based on the breadth of sources analysed.</li>
-        <li><strong>No black boxes</strong> – the methodology is fully public and the raw API is accessible to subscribers.</li>
-        <li><strong>Always fresh</strong> – recalculated with every request, so you always see a current assessment.</li>
-        <li><strong>Built for professionals</strong> – designed for journalists, investors, fund managers, analysts, and government institutions (central banks, planning ministries, and policy bodies) who need a quick, objective Fed sentiment read.</li>
-    </ul>
+    <!-- -------- MARKET -------- -->
+    <div class="method-block">
+      <div class="method-anchor" id="methodology-market"></div>
+      <h2>Market Pricing</h2>
+      <p>
+        The Market Pricing component measures the direction of Fed policy priced by markets. It uses the same
+        0–100 scale as FTN — <em>dovish to hawkish</em> — but is derived from market data rather than documents.
+        A hawkish Market Pricing reading means the market is pricing tighter-for-longer, independent of
+        what the Fed documents say.
+      </p>
 
-    <!-- -------- METHODOLOGY -------- -->
-    <h2 id="methodology">Methodology at a Glance</h2>
-    <div class="card">
-        <p><strong>1. Introduction:</strong> The F‑Tone Index measures the Federal Reserve's policy tone as expressed in official speeches, FOMC statements and minutes, plus regional Fed speeches, testimony, and Fed blog posts; it includes both rate guidance and balance sheet. A companion Market Expectation score is produced by a separate service using Treasury yields and the US Dollar Index. On the back of the FTN tile, the index also shows the current policy rates directly controlled by the Fed.</p>
+      <h4>Inputs and weights</h4>
+      <table class="weights-table">
+        <thead>
+          <tr><th>Input</th><th>Source</th><th class="num">Weight</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>2Y Treasury yield</strong></td><td>FRED (DGS2)</td><td class="num">40%</td></tr>
+          <tr><td><strong>10Y Treasury yield</strong></td><td>FRED (DGS10)</td><td class="num">30%</td></tr>
+          <tr><td><strong>US Dollar Index</strong></td><td>Yahoo Finance (DXY)</td><td class="num">30%</td></tr>
+        </tbody>
+      </table>
 
-        <p><strong>2. Radical transparency:</strong> The FTN Index is built on one core principle: every score is traceable to its source, every number is verifiable. No black boxes. No hidden logic. Just open data, openly presented.</p>
+      <h4>Scoring</h4>
+      <p>
+        Each input is converted to a 0–100 percentile score using a linear mapping to its reference range:
+      </p>
+      <code class="formula">2Y:  2% → 0    8% → 100</code>
+      <code class="formula">10Y: 2% → 0    8% → 100</code>
+      <code class="formula">DXY: 90 → 0    120 → 100</code>
+      <p>
+        Higher yields signal tighter expected policy and therefore a higher Market Pricing score.
+        A stronger dollar signals tighter global dollar conditions and likewise pushes the score higher.
+      </p>
 
-        <p><strong>3. Score:</strong> The score uses a scale from 0 = extremely dovish (signalling rate cuts / easing) to 100 = extremely hawkish (signalling rate hikes / tightening). It reflects a combined assessment of two factors:
-        <br>– <em>Imminence</em>: how soon a change to the federal funds rate is expected.
-        <br>– <em>Sharpness</em>: how large or decisive that change appears.
-        <br>These factors are weighed equally. The AI analyses the text for language about inflation, employment, growth, and policy guidance, then returns a single number capturing both the urgency and magnitude of potential rate actions.</p>
-
-        <p><strong>4. Dual display:</strong> The headline shows <strong>live → 7d avg</strong>:
-        <br>– <strong>Live score</strong> – the immediate average of today's document scores. It reacts instantly to new Fed language.
-        <br>– <strong>7d avg</strong> – a rolling average of the last 7 days (6 past days + today so far), designed to filter out noise and reveal the trend.
-        <br>The ▲ / ▼ / — indicator reflects the daily change in the <em>7d avg</em>, comparing today's 7‑day average (6 past days + today so far) with yesterday's 7‑day average.
-        <br>If the <strong>live score</strong> moves <strong>5 points or more</strong> in the <strong>opposite direction</strong> of the <strong>smoothed score's movement</strong> (i.e., the 7d avg trend), a persistent alert (⚠️) appears next to the live score for up to 24 hours — as an early warning of a potential trend change.</p>
-
-        <p><strong>5. Qualitative label:</strong> The "Hawkish" / "Dovish" label shows in which segment of the 0–100 range the 7d avg is anchored:
-        <br>– <strong>0–20:</strong> Extremely Dovish
-        <br>– <strong>20–40:</strong> Dovish
-        <br>– <strong>40–60:</strong> Neutral
-        <br>– <strong>60–80:</strong> Hawkish
-        <br>– <strong>80–100:</strong> Extremely Hawkish
-        <br>The label is a quick visual and mnemonic reference for the score's segment. It does not imply a movement or a trend direction.</p>
-
-        <p><strong>6. Confidence:</strong> HIGH, MEDIUM, or LOW reflects the breadth of sources analysed and the total text volume. HIGH means ≥4 sources and >8,000 characters of Fed text were processed; MEDIUM means ≥2 sources and >3,000 characters; LOW means fewer sources or less text.</p>
-
-                    <p><strong>7. Data availability &amp; public delay:</strong> The public dashboard (no login or trial key) intentionally displays the FTN score with a 30‑ to 45‑minute delay, indicated at the top of the page. Subscribers with a valid trial or paid key receive the dashboard in real time, together with raw API access, historical CSV downloads, and email alerts. When a fresh computation cannot be retrieved for any reason, the dashboard displays the most recent successfully computed reading, marked as ‘last reading’.</p>
-
-        <p><strong>8. Market expectation:</strong> A separate service produces a companion score from the 2‑year Treasury yield (via FRED), the 2y/10y spread (FRED), and the US Dollar Index (Yahoo Finance), displayed below the FTN data on the dashboard.</p>
-
-        <p><strong>9. Fed policy rates (flip‑card):</strong> The flip‑card on the FTN tile shows the three key rates the Federal Reserve directly controls: the Fed Funds target range, the Interest on Reserve Balances (IORB) rate, and the Overnight Reverse Repo (ON RRP) rate. The data is sourced directly from the Federal Reserve via FRED.</p>
-
-        <p><strong>10. Inclusive design:</strong> The colour pair used for the live and smoothed scores — a warm purple and a cool blue — is carefully chosen to be clearly distinguishable for users with the most common form of colour vision deficiency (red‑green).</p>
+      <h4>Interpretation bands</h4>
+      <ul class="bands">
+        <li><span class="band">80–100</span> Extremely hawkish</li>
+        <li><span class="band">60–80</span> Hawkish</li>
+        <li><span class="band">40–60</span> Neutral</li>
+        <li><span class="band">20–40</span> Dovish</li>
+        <li><span class="band">0–20</span> Extremely dovish</li>
+      </ul>
     </div>
 
-    <!-- -------- PRICING -------- -->
-    <h2 id="pricing">Pricing</h2>
-    <div class="card">
+    <!-- -------- GOLD -------- -->
+    <div class="method-block">
+      <div class="method-anchor" id="methodology-gold"></div>
+      <h2>Gold Anchor</h2>
+      <p>
+        The Gold Anchor component measures the hard-asset backing of U.S. monetary and fiscal obligations.
+        It is not a legal solvency metric. It is an analytical transparency measure showing how much of the
+        system's outstanding liabilities would be covered by the sovereign's official gold stock, valued at
+        market price.
+      </p>
 
-        <div class="pricing-grid">
+      <h4>Holdings</h4>
+      <p>
+        The U.S. official gold stock is approximately <strong>261.5 million fine troy ounces</strong>
+        (261,498,926 oz). It is owned by the U.S. Treasury and custodied by the Federal Reserve.
+      </p>
+      <p>
+        Source: <a href="https://home.treasury.gov/data/us-international-reserve-position" target="_blank" rel="noopener">U.S. Treasury, Status Report of U.S. Government Gold Reserve</a>.
+      </p>
 
-            <!-- Free -->
-            <div class="pricing-card">
-                <h3 style="color:#8b95a5;">Free</h3>
-                <div class="price">$0</div>
-                <ul>
-                    <li>30‑minute delayed dashboard</li>
-                    <li>Full access to score, sources, and market expectation</li>
-                    <li style="color:#5a6577;">No API access</li>
-                    <li style="color:#5a6577;">No email alerts</li>
-                </ul>
-            </div>
+      <h4>Two coverage ratios</h4>
+      <code class="formula">Monetary Base Cover = gold market value ÷ Fed total liabilities</code>
+      <code class="formula">Sovereign Debt Cover = gold market value ÷ Federal debt held by the public</code>
+      <p>
+        The two ratios share the same gold numerator but different denominators. They are
+        <strong>not additive</strong> — the same gold cannot be counted twice.
+      </p>
 
-            <!-- Founding Analyst -->
-            <div class="pricing-card highlight">
-                <div class="badge">FOUNDING ANALYST</div>
-                <div class="price">$199 <span>/month</span></div>
-                <div class="lock">🔒 Lifetime lock</div>
-                <ul>
-                    <li>Real‑time dashboard</li>
-                    <li>Real‑time API access</li>
-                    <li>Historical data (CSV export)</li>
-                    <li>Email alerts</li>
-                    <li style="color:#4fc97a;">14‑day free trial</li>
-                </ul>
-            </div>
+      <h4>Why two</h4>
+      <p>
+        <strong>Monetary Base Cover</strong> answers: how much of the Fed's money-like liabilities
+        (currency, reserves, RRP) would be covered by the sovereign's gold at today's market price?
+        This is a monetary-system credibility metric.
+      </p>
+      <p>
+        <strong>Sovereign Debt Cover</strong> answers: how much of the sovereign debt owed to outside
+        creditors would be covered by gold? This is a fiscal credibility metric.
+      </p>
 
-            <!-- Standard -->
-            <div class="pricing-card">
-                <h3 style="color:#e6e1cf;">Standard</h3>
-                <div class="price">$299 <span>/month</span></div>
-                <ul>
-                    <li>Real‑time dashboard</li>
-                    <li>Real‑time API access</li>
-                    <li>Historical data (CSV export)</li>
-                    <li>Email alerts</li>
-                    <li style="color:#5a6577;">14‑day trial available</li>
-                </ul>
-            </div>
+      <h4>Score</h4>
+      <code class="formula">Gold Anchor = 0.5 × MB cover percentile + 0.5 × Sovereign cover percentile</code>
 
-            <!-- Enterprise -->
-            <div class="pricing-card">
-                <h3 style="color:#f2c94c;">Enterprise</h3>
-                <div class="price">$999 <span>/month</span></div>
-                <ul>
-                    <li>API access for up to 5 users</li>
-                    <li>Co‑branding rights</li>
-                </ul>
-            </div>
-
-        </div>
-
-        <p class="pricing-note">
-            <em>Enterprise and custom plans for larger teams are available. <a href="#contact">Contact us</a> for more information.</em>
-        </p>
+      <h4>Interpretation bands</h4>
+      <ul class="bands">
+        <li><span class="band">80–100</span> Strong backing</li>
+        <li><span class="band">60–80</span> Adequate backing</li>
+        <li><span class="band">40–60</span> Limited backing</li>
+        <li><span class="band">20–40</span> Weak backing</li>
+        <li><span class="band">0–20</span> Critical backing</li>
+      </ul>
     </div>
 
-    <!-- -------- CALL TO ACTION -------- -->
-    <div class="cta">
-        <a href="https://ftone-index.github.io/ftone-dashboard/" target="_blank">View the Live Dashboard →</a>
+    <!-- -------- ALIGNMENT -------- -->
+    <div class="method-block">
+      <div class="method-anchor" id="methodology-alignment"></div>
+      <h2>Alignment — a diagnostic reading</h2>
+      <p>
+        Alignment measures the consistency between what the Federal Reserve communicates (FTN) and what
+        markets price (Market Pricing).
+      </p>
+
+      <h4>Formula</h4>
+      <code class="formula">Alignment = 100 − |FTN − Market Pricing|</code>
+      <p>
+        If FTN = 64 and Market Pricing = 73, Alignment = 100 − 9 = 91.
+      </p>
+
+      <h4>Interpretation</h4>
+      <p>
+        <strong>High alignment (≥80)</strong> means markets and the Fed are on the same page — the credibility
+        reading is more reliable.
+      </p>
+      <p>
+        <strong>Low alignment (&lt;60)</strong> signals divergence — markets may be questioning Fed credibility.
+      </p>
+
+      <h4>Not an FCI input</h4>
+      <p>
+        Alignment is <strong>a diagnostic only</strong>. It does not enter the FCI composite formula.
+        It is displayed alongside the composite so the user can assess the internal consistency of the reading.
+      </p>
     </div>
 
-    <!-- -------- CONTACT -------- -->
-    <h2 id="contact">Get Access</h2>
-    <div class="card">
-        <p>
-            The live dashboard is available to everyone with a <strong>30‑minute delay</strong>, no login required.<br>
-            For <strong>real‑time access</strong>, see plans above, or request a trial key below.
-        </p>
+    <!-- -------- SOURCES -------- -->
+    <div class="method-block">
+      <div class="method-anchor" id="methodology-sources"></div>
+      <h2>All sources</h2>
+      <p>
+        Every number on the dashboard is traceable to one of the sources below.
+      </p>
 
-        <form class="contact-form" id="contact-form">
-            <input type="text" name="name" id="form-name" placeholder="Your name" required>
-            <input type="email" name="email" id="form-email" placeholder="Your email address" required>
-            <textarea name="message" id="form-message" rows="3" placeholder="I'd like to request a trial key or ask about..."></textarea>
-            <button type="submit" id="form-submit">Send Message</button>
-            <span class="form-note" id="form-status"></span>
-        </form>
+      <h4>Fed documents (FTN)</h4>
+      <ul class="source-list">
+        <li><strong>Board speeches</strong> <a href="https://www.federalreserve.gov/newsevents/speeches.htm" target="_blank" rel="noopener">federalreserve.gov/newsevents/speeches.htm</a></li>
+        <li><strong>FOMC statements</strong> <a href="https://www.federalreserve.gov/newsevents/pressreleases.htm" target="_blank" rel="noopener">federalreserve.gov/newsevents/pressreleases.htm</a></li>
+        <li><strong>FOMC minutes</strong> <a href="https://www.federalreserve.gov/monetarypolicy/fomcminutes.htm" target="_blank" rel="noopener">federalreserve.gov/monetarypolicy/fomcminutes.htm</a></li>
+        <li><strong>Testimony</strong> <a href="https://www.federalreserve.gov/newsevents/testimony.htm" target="_blank" rel="noopener">federalreserve.gov/newsevents/testimony.htm</a></li>
+        <li><strong>NY Fed speeches</strong> <a href="https://www.newyorkfed.org/newsevents/speeches" target="_blank" rel="noopener">newyorkfed.org/newsevents/speeches</a></li>
+        <li><strong>Liberty Street Economics</strong> <a href="https://libertystreeteconomics.newyorkfed.org/" target="_blank" rel="noopener">libertystreeteconomics.newyorkfed.org</a></li>
+      </ul>
 
-        <p class="direct-email">
-            Or email us directly: <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>
-        </p>
+      <h4>Policy rates and market data (FRED)</h4>
+      <ul class="source-list">
+        <li><strong>DFF</strong> Effective Federal Funds Rate</li>
+        <li><strong>DFEDTARU / DFEDTARL</strong> Fed Funds target range</li>
+        <li><strong>IORB</strong> Interest on Reserve Balances</li>
+        <li><strong>RRPONTSYD</strong> Overnight Reverse Repo</li>
+        <li><strong>DGS2 / DGS10</strong> 2Y and 10Y Treasury yields</li>
+        <li><strong>DXY</strong> US Dollar Index (via Yahoo Finance)</li>
+      </ul>
+
+      <h4>Gold</h4>
+      <ul class="source-list">
+        <li><strong>Spot price</strong> goldprice.dev (XAU/USD)</li>
+        <li><strong>Shanghai premium &amp; SGE reference</strong> World Gold Council Goldhub API</li>
+        <li><strong>Tonnage</strong> <a href="https://home.treasury.gov/data/us-international-reserve-position" target="_blank" rel="noopener">U.S. Treasury International Reserve Position</a></li>
+      </ul>
+
+      <h4>Radical transparency</h4>
+      <p>
+        Every score on the dashboard is linked to the source document that produced it. Every number is
+        verifiable. No hidden logic. No proprietary black boxes.
+      </p>
     </div>
 
-    <!-- -------- FOOTER -------- -->
-    <div class="footer">
-        <a href="https://ftone-index.github.io/ftone-dashboard/">Dashboard</a>
-        <a href="https://ftone-index.github.io/ftone-dashboard/legal/terms.html">Terms of Service</a>
-        <br><br>
-        © 2026 F‑Tone Index. All rights reserved.
+  </div>
+</section>
+
+<!-- ============================ PRICING ============================ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label">Pricing</div>
+    <h2>Access tiers.</h2>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Free</h3>
+        <div class="price">$0</div>
+        <div class="pricing-note">Open to everyone, no login</div>
+        <ul>
+          <li>30-minute delayed dashboard</li>
+          <li>Full FCI composite and all four inputs</li>
+          <li>Full source attribution</li>
+          <li class="muted">No real-time API</li>
+          <li class="muted">No email alerts</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card highlight">
+        <div class="badge-pill">Founding Analyst</div>
+        <h3>Founding Analyst</h3>
+        <div class="price">$199 <span>/ month</span></div>
+        <div class="pricing-note">Lifetime rate lock · First 150 subscribers</div>
+        <ul>
+          <li>Real-time dashboard</li>
+          <li>Real-time API access</li>
+          <li>Historical CSV exports</li>
+          <li>Email alerts</li>
+          <li>14-day free trial</li>
+        </ul>
+      </div>
+
+      <div class="pricing-card">
+        <h3>Standard</h3>
+        <div class="price">$299 <span>/ month</span></div>
+        <div class="pricing-note">Full access, standard rate</div>
+        <ul>
+          <li>Real-time dashboard</li>
+          <li>Real-time API access</li>
+          <li>Historical CSV exports</li>
+          <li>Email alerts</li>
+          <li>14-day trial available</li>
+        </ul>
+      </div>
     </div>
 
-    <!-- -------- CONTACT FORM SCRIPT -------- -->
-    <script>
-        (function() {
-            var form = document.getElementById('contact-form');
-            var status = document.getElementById('form-status');
-            var submitBtn = document.getElementById('form-submit');
-            var nameField = document.getElementById('form-name');
-            var emailField = document.getElementById('form-email');
-            var messageField = document.getElementById('form-message');
+    <p class="pricing-footnote">
+      Enterprise and custom plans — including co-branding and multi-user API access — are available on request.
+      <a href="#get-access">Contact us</a> for details.
+    </p>
+  </div>
+</section>
 
-            if (!form || !status) return;
+<!-- ============================ GET ACCESS ============================ -->
+<section id="get-access">
+  <div class="container">
+    <div class="section-label">Get access</div>
+    <h2>Request a real-time key.</h2>
 
-            var API_URL = 'https://ftn-index.onrender.com/contact';
+    <p>
+      The live dashboard is available to everyone with a <strong>30-minute delay</strong>, no login required.
+      For <strong>real-time access</strong>, request a trial key below or select a plan above.
+    </p>
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
+    <form class="contact-form" id="contact-form">
+      <input type="text" name="name" id="form-name" placeholder="Your name" required autocomplete="name">
+      <input type="email" name="email" id="form-email" placeholder="Your email address" required autocomplete="email">
+      <textarea name="message" id="form-message" rows="4" placeholder="I'd like to request a trial key, or ask about..."></textarea>
+      <button type="submit" id="form-submit">Send request</button>
+      <span class="form-status" id="form-status"></span>
+    </form>
 
-                var name = nameField.value.trim();
-                var email = emailField.value.trim();
-                var message = messageField.value.trim();
+    <p class="direct-email">
+      Or email us directly at <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>.
+    </p>
+  </div>
+</section>
 
-                if (!name || !email) {
-                    status.textContent = 'Please provide your name and email.';
-                    status.style.color = '#e05555';
-                    return;
-                }
+<!-- ============================ TERMS ============================ -->
+<section id="terms">
+  <div class="container terms-block">
+    <div class="section-label">Legal</div>
+    <h2>Terms of Service &amp; Disclaimer</h2>
+    <p><strong>Last updated: 25 September 2026</strong></p>
 
-                submitBtn.textContent = 'Sending...';
-                submitBtn.disabled = true;
-                status.textContent = '';
-                status.style.color = '#8b95a5';
+    <h3>1. Acceptance of terms</h3>
+    <p>By accessing the Federal Reserve Credibility Index ("the Service"), you agree to be bound by these Terms of Service. If you do not agree, do not use the Service.</p>
 
-                fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name: name, email: email, message: message })
-                })
-                .then(function(response) { return response.json(); })
-                .then(function(data) {
-                    if (data.status === 'success') {
-                        status.textContent = data.message;
-                        status.style.color = '#4fc97a';
-                        form.reset();
-                    } else {
-                        status.textContent = data.message;
-                        status.style.color = '#e05555';
-                    }
-                })
-                .catch(function() {
-                    status.innerHTML = 'Something went wrong. Please email us directly at <a href="mailto:ftone.index@gmail.com" style="color:#58a6ff;">ftone.index@gmail.com</a>';
-                    status.style.color = '#e05555';
-                })
-                .finally(function() {
-                    submitBtn.textContent = 'Send Message';
-                    submitBtn.disabled = false;
-                });
-            });
-        })();
-    </script>
+    <h3>2. Description of service</h3>
+    <p>The Federal Reserve Credibility Index is an automated, AI-driven composite indicator combining Federal Reserve communication sentiment, market pricing, and U.S. sovereign gold backing, together with a diagnostic alignment reading. It is provided for informational and research purposes only.</p>
+
+    <h3>3. No financial advice</h3>
+    <p><strong>Nothing on this website constitutes financial, investment, legal, or tax advice.</strong> The Service is not a recommendation to buy, sell, or hold any financial instrument. You should consult a qualified professional before making any investment decisions.</p>
+
+    <h3>4. Accuracy of information</h3>
+    <p>The Service relies on automated data collection and artificial intelligence analysis. We do not guarantee the accuracy, completeness, or timeliness of the composite or any related data. The computation time displayed on the dashboard reflects the moment the analysis was completed; it may not match the exact time a user loads the page.</p>
+    <p>The Service uses third-party data sources including the Federal Reserve, the Federal Reserve Economic Data (FRED) platform, the U.S. Treasury, the World Gold Council, and the Shanghai Gold Exchange, all of which are outside our control. We do not guarantee the availability or accuracy of this data.</p>
+
+    <h3>5. Disclaimer of warranties</h3>
+    <p>The Service is provided on an <strong>"as is" and "as available"</strong> basis without any warranty of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, non-infringement, or that the Service will be available uninterrupted, error-free, or continue to be offered in the future.</p>
+
+    <h3>6. Limitation of liability</h3>
+    <p>To the fullest extent permitted by law, the operators of the Service shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages, including but not limited to financial losses, arising from your use of or inability to use the Service. <strong>For users who access the Service free of charge, liability is capped at zero.</strong></p>
+
+    <h3>7. Intellectual property</h3>
+    <p>The FCI methodology, branding, and website content are proprietary. You may share and reference the composite score and its components with appropriate credit. You may not systematically reproduce or redistribute the raw data for commercial purposes without permission.</p>
+
+    <h3>8. Changes to these terms</h3>
+    <p>We reserve the right to modify these Terms at any time. Continued use of the Service after changes constitutes acceptance of the new Terms.</p>
+
+    <h3>9. Contact</h3>
+    <p>For questions regarding these Terms, contact us at <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>.</p>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div>
+      <a href="#methodology-fci">Methodology</a>
+      <a href="#terms">Terms</a>
+      <a href="https://ftone-dashboard-gold-preview.netlify.app/" target="_blank" rel="noopener">Dashboard</a>
+    </div>
+    <div>© 2026 FCI — Federal Reserve Credibility Index</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  var submitBtn = document.getElementById('form-submit');
+  var nameField = document.getElementById('form-name');
+  var emailField = document.getElementById('form-email');
+  var messageField = document.getElementById('form-message');
+
+  if (!form || !status) return;
+
+  var API_URL = 'https://ftn-index.onrender.com/contact';
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var name = nameField.value.trim();
+    var email = emailField.value.trim();
+    var message = messageField.value.trim();
+
+    if (!name || !email) {
+      status.textContent = 'Please provide your name and email.';
+      status.style.color = '#D9534F';
+      return;
+    }
+
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
+    status.textContent = '';
+    status.style.color = '#7E8A82';
+
+    fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email, message: message })
+    })
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      if (data.status === 'success') {
+        status.textContent = data.message;
+        status.style.color = '#8AB4C8';
+        form.reset();
+      } else {
+        status.textContent = data.message || 'Something went wrong.';
+        status.style.color = '#D9534F';
+      }
+    })
+    .catch(function() {
+      status.innerHTML = 'Something went wrong. Please email us directly at <a href="mailto:ftone.index@gmail.com">ftone.index@gmail.com</a>.';
+      status.style.color = '#D9534F';
+    })
+    .finally(function() {
+      submitBtn.textContent = 'Send request';
+      submitBtn.disabled = false;
+    });
+  });
+})();
+</script>
+
 </body>
 </html>
