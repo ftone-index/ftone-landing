@@ -572,7 +572,43 @@ p strong { color: var(--text-primary); font-weight: 600; }
   font-size: 13px;
   color: var(--text-tertiary);
 }
+.realtime-benefits {
+  margin-top: var(--space-6);
+  padding: var(--space-5);
+  background: var(--bg-card-soft);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--gold-muted);
+  border-radius: var(--radius-md);
+}
+.realtime-benefits h4 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--gold-pale);
+  margin-bottom: var(--space-3);
+}
+.realtime-benefits ul {
+  list-style: none;
+  padding: 0;
+}
+.realtime-benefits li {
+  color: var(--text-secondary);
+  font-size: 14px;
+  padding: 4px 0 4px 18px;
+  position: relative;
+}
+.realtime-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 12px;
+}
 
+
+  
 /* ---------------- CONTACT FORM ---------------- */
 .contact-form {
   display: flex;
