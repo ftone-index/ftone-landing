@@ -838,7 +838,7 @@ p strong { color: var(--text-primary); font-weight: 600; }
         <li><span class="band">60–80</span> Moderate credibility</li>
         <li><span class="band">40–60</span> Mixed credibility</li>
         <li><span class="band">20–40</span> Low credibility</li>
-        <li><span class="band">0–20</span> Stressed</li>
+        <li><span class="band">0–20</span> Compromised credibility</li>
       </ul>
     </div>
 
@@ -852,7 +852,11 @@ p strong { color: var(--text-primary); font-weight: 600; }
       </p>
 
       <h4>Sources</h4>
-      <p>Every Fed communication is processed the moment it is published, from six categories:</p>
+      <p>
+        At each computation, the system retrieves the most recent communications from six categories.
+        In practice this covers the last two to four weeks of speeches and testimony, plus the most
+        recent FOMC statement and minutes.
+      </p>
       <ul class="source-list">
         <li><strong>FOMC statements</strong> Federal Reserve Board press releases</li>
         <li><strong>FOMC minutes</strong> Published three weeks after each meeting</li>
@@ -884,6 +888,15 @@ p strong { color: var(--text-primary); font-weight: 600; }
         <li><strong>LOW</strong> Fewer sources or less text</li>
       </ul>
 
+      <h4>Keyword integrity check</h4>
+      <p>
+        After the AI assigns a score, the system performs a lightweight keyword check. If a document
+        contains two or more strong hawkish phrases (for example "raise rates", "inflation is too high")
+        but the AI scored it below 25, the score is nudged upward, capped at 45. The symmetric rule applies
+        for dovish language. The check never flips the direction of the AI reading — it only corrects
+        outliers at the extremes, by at most 15 points.
+      </p>
+      
       <h4>Radical transparency</h4>
       <p>
         Every score is traceable to the exact source document that produced it. Every document is linked,
@@ -959,6 +972,26 @@ p strong { color: var(--text-primary); font-weight: 600; }
       <h4>Two coverage ratios</h4>
       <code class="formula">Monetary Base Cover = gold market value ÷ Fed total liabilities</code>
       <code class="formula">Sovereign Debt Cover = gold market value ÷ Federal debt held by the public</code>
+
+      <p>
+        <strong>In plain English.</strong> The US holds 261.5 million ounces of gold — approximately
+        8,133 metric tonnes. At today's market price, that gold is worth roughly $1.1 trillion. Two very
+        different obligations sit on the other side of the ledger: about $6.8 trillion of Fed money-like
+        liabilities (currency, bank reserves, reverse repos), and about $31 trillion of Treasury debt
+        owed to outside creditors. Dividing the gold by each of those gives two coverage ratios — one
+        for the monetary system, one for the sovereign.
+      </p>
+      <p>
+        Each ratio is then ranked against its own 10-year history. If today's Monetary Base Cover sits in
+        the 88th percentile, that is a high score. If today's Sovereign Debt Cover sits in the 39th
+        percentile, that is a middling score. The two percentiles are averaged to produce the Gold Anchor
+        reading.
+      </p>
+      <p>
+        <strong>Worked example.</strong> Monetary Base Cover = 88th percentile. Sovereign Debt Cover = 39th
+        percentile. Gold Anchor = (88 + 39) ÷ 2 = <strong>63.5</strong>. That lands in "Adequate backing."
+      </p>      
+      
       <p>
         The two ratios share the same gold numerator but different denominators. They are
         <strong>not additive</strong> — the same gold cannot be counted twice.
@@ -1049,8 +1082,9 @@ p strong { color: var(--text-primary); font-weight: 600; }
 
       <h4>Gold</h4>
       <ul class="source-list">
-        <li><strong>Spot price</strong> goldprice.dev (XAU/USD)</li>
-        <li><strong>Shanghai premium &amp; SGE reference</strong> World Gold Council Goldhub API</li>
+        <li><strong>LBMA spot price</strong> goldprice.dev (XAU/USD)</li>
+        <li><strong>Shanghai premium</strong> World Gold Council Goldhub API</li>
+        <li><strong>SGE reference (CNY/g)</strong> <a href="https://en.sge.com.cn/data_BenchmarkPrice" target="_blank" rel="noopener">Shanghai Gold Exchange benchmark page</a></li>
         <li><strong>Tonnage</strong> <a href="https://home.treasury.gov/data/us-international-reserve-position" target="_blank" rel="noopener">U.S. Treasury International Reserve Position</a></li>
       </ul>
 
@@ -1126,6 +1160,17 @@ p strong { color: var(--text-primary); font-weight: 600; }
       </div>
     </div>
 
+    <div class="realtime-benefits">
+      <h4>What real-time unlocks</h4>
+      <ul>
+        <li>Immediate dashboard updates — no 30–45 minute delay</li>
+        <li>Email alerts on material FTN moves and FOMC statements</li>
+        <li>Historical CSV downloads of FCI and all four component histories</li>
+        <li>Raw API access to the composite and every input</li>
+        <li>Priority consideration for the upcoming suite — GIP, GTX, and GOG</li>
+      </ul>
+    </div>
+    
     <p class="pricing-footnote">
       Larger deployments, white-label arrangements, and bespoke data feeds are available on request.
       <a href="#get-access">Contact us</a> for details.
