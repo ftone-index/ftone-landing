@@ -813,6 +813,25 @@ p strong { color: var(--text-primary); font-weight: 600; }
       <code class="formula">Policy Rate Calibration = 50 − 25 × (Real Policy Rate − Neutral Rate)</code>
       <code class="formula">Real Policy Rate = Fed Funds − Core PCE YoY (neutral rate = 0.5%)</code>
 
+      <p>
+        <strong>Real Policy Rate</strong> is what the Fed's rate actually means after accounting for inflation.
+        If the Fed Funds rate is 4.00% and Core PCE inflation is 3.00%, the real rate is 1.00%.
+        That is what a borrower truly pays, once inflation is stripped out. If inflation were 5.00%, the real
+        rate would be −1.00%, meaning money is effectively free and the Fed is behind the curve despite a
+        nominal 4.00% rate.
+      </p>
+      <p>
+        <strong>Policy Rate Calibration</strong> converts the real rate into a 0–100 score that says how
+        tight or loose policy is in real terms, relative to the neutral rate at which the economy neither
+        speeds up nor slows down (we use 0.5%). The formula centres at 50: if the real rate equals neutral,
+        the score is 50. Every 0.1 percentage point of deviation moves the score by 2.5.
+      </p>
+      <p>
+        <strong>Worked example.</strong> Fed Funds = 4.00%, Core PCE = 3.00%, so Real Policy Rate = 1.00%.
+        Neutral = 0.50%, so deviation = 0.50%. Policy Rate Calibration = 50 − 25 × 0.50 = <strong>37.5</strong>.
+        That sits in the dovish half of the range — real policy is looser than neutral.
+      </p>
+
       <h4>Interpretation bands</h4>
       <ul class="bands">
         <li><span class="band">80–100</span> High credibility</li>
