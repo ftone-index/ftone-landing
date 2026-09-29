@@ -127,7 +127,7 @@ a:hover { color: var(--gold-pale); }
   height: 1px;
   background: var(--gold);
 }
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .nav-links { display: none; }
 }
 
@@ -188,7 +188,7 @@ a:hover { color: var(--gold-pale); }
     margin-top: 2px;
   }
 }
-  
+
 /* ---------------- HERO ---------------- */
 .hero {
   padding: var(--space-8) 0 var(--space-7);
@@ -366,6 +366,20 @@ p strong { color: var(--text-primary); font-weight: 600; }
 .methodology-nav a:hover {
   color: var(--gold);
   border-color: var(--gold-muted);
+}
+
+/* Compact repeat-nav after each subsection */
+.methodology-nav.compact {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-top: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-top: 1px solid var(--rule);
+  border-bottom: none;
+}
+.methodology-nav.compact a {
+  padding: 4px 10px;
+  font-size: 10px;
 }
 
 .method-block {
@@ -607,8 +621,6 @@ p strong { color: var(--text-primary); font-weight: 600; }
   font-size: 12px;
 }
 
-
-  
 /* ---------------- CONTACT FORM ---------------- */
 .contact-form {
   display: flex;
@@ -716,7 +728,7 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <button class="banner-close" aria-label="Dismiss" id="bannerClose">✕</button>
   </div>
 </div>
-  
+
 <!-- ============================ HEADER ============================ -->
 <header class="site-header">
   <div class="container">
@@ -729,6 +741,7 @@ p strong { color: var(--text-primary); font-weight: 600; }
       <a href="#pricing" data-nav="pricing">Pricing</a>
       <a href="#get-access" data-nav="get-access">Get access</a>
       <a href="#terms" data-nav="terms">Terms</a>
+      <a href="https://ftone-dashboard-gold-preview.netlify.app/" target="_blank" rel="noopener">Dashboard</a>
     </nav>
   </div>
 </header>
@@ -805,6 +818,16 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="method-block">
       <div class="method-anchor" id="methodology-fci"></div>
       <h2>FCI — Federal Reserve Credibility Index</h2>
+
+      <nav class="methodology-nav compact">
+        <a href="#methodology-fci">FCI composite</a>
+        <a href="#methodology-ftn">Fed Sentiment</a>
+        <a href="#methodology-market">Market Pricing</a>
+        <a href="#methodology-gold">Gold Anchor</a>
+        <a href="#methodology-alignment">Alignment</a>
+        <a href="#methodology-sources">Sources</a>
+      </nav>
+
       <p>
         The FCI is a composite 0–100 score measuring the market's real-time assessment of U.S. monetary credibility.
         <strong>100 = highest credibility. 0 = severe credibility stress.</strong>
@@ -882,6 +905,16 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="method-block">
       <div class="method-anchor" id="methodology-ftn"></div>
       <h2>Fed Sentiment — the FTN component</h2>
+
+      <nav class="methodology-nav compact">
+        <a href="#methodology-fci">FCI composite</a>
+        <a href="#methodology-ftn">Fed Sentiment</a>
+        <a href="#methodology-market">Market Pricing</a>
+        <a href="#methodology-gold">Gold Anchor</a>
+        <a href="#methodology-alignment">Alignment</a>
+        <a href="#methodology-sources">Sources</a>
+      </nav>
+
       <p>
         The Fed Sentiment component measures the tone of Federal Reserve communication using AI analysis
         of official documents. It is the primary "what the Fed says" input to the credibility composite.
@@ -932,7 +965,7 @@ p strong { color: var(--text-primary); font-weight: 600; }
         for dovish language. The check never flips the direction of the AI reading — it only corrects
         outliers at the extremes, by at most 15 points.
       </p>
-      
+
       <h4>Radical transparency</h4>
       <p>
         Every score is traceable to the exact source document that produced it. Every document is linked,
@@ -944,6 +977,16 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="method-block">
       <div class="method-anchor" id="methodology-market"></div>
       <h2>Market Pricing</h2>
+
+      <nav class="methodology-nav compact">
+        <a href="#methodology-fci">FCI composite</a>
+        <a href="#methodology-ftn">Fed Sentiment</a>
+        <a href="#methodology-market">Market Pricing</a>
+        <a href="#methodology-gold">Gold Anchor</a>
+        <a href="#methodology-alignment">Alignment</a>
+        <a href="#methodology-sources">Sources</a>
+      </nav>
+
       <p>
         The Market Pricing component measures the direction of Fed policy priced by markets. It uses the same
         0–100 scale as FTN — <em>dovish to hawkish</em> — but is derived from market data rather than documents.
@@ -989,6 +1032,16 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="method-block">
       <div class="method-anchor" id="methodology-gold"></div>
       <h2>Gold Anchor</h2>
+
+      <nav class="methodology-nav compact">
+        <a href="#methodology-fci">FCI composite</a>
+        <a href="#methodology-ftn">Fed Sentiment</a>
+        <a href="#methodology-market">Market Pricing</a>
+        <a href="#methodology-gold">Gold Anchor</a>
+        <a href="#methodology-alignment">Alignment</a>
+        <a href="#methodology-sources">Sources</a>
+      </nav>
+
       <p>
         The Gold Anchor component measures the hard-asset backing of U.S. monetary and fiscal obligations.
         It is not a legal solvency metric. It is an analytical transparency measure showing how much of the
@@ -999,7 +1052,8 @@ p strong { color: var(--text-primary); font-weight: 600; }
       <h4>Holdings</h4>
       <p>
         The U.S. official gold stock is approximately <strong>261.5 million fine troy ounces</strong>
-        (261,498,926 oz). It is owned by the U.S. Treasury and custodied by the Federal Reserve.
+        (261,498,926 oz), equal to roughly <strong>8,133 metric tonnes</strong>. It is owned by the U.S.
+        Treasury and custodied by the Federal Reserve.
       </p>
       <p>
         Source: <a href="https://home.treasury.gov/data/us-international-reserve-position" target="_blank" rel="noopener">U.S. Treasury, Status Report of U.S. Government Gold Reserve</a>.
@@ -1026,8 +1080,8 @@ p strong { color: var(--text-primary); font-weight: 600; }
       <p>
         <strong>Worked example.</strong> Monetary Base Cover = 88th percentile. Sovereign Debt Cover = 39th
         percentile. Gold Anchor = (88 + 39) ÷ 2 = <strong>63.5</strong>. That lands in "Adequate backing."
-      </p>      
-      
+      </p>
+
       <p>
         The two ratios share the same gold numerator but different denominators. They are
         <strong>not additive</strong> — the same gold cannot be counted twice.
@@ -1061,6 +1115,16 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="method-block">
       <div class="method-anchor" id="methodology-alignment"></div>
       <h2>Alignment — a diagnostic reading</h2>
+
+      <nav class="methodology-nav compact">
+        <a href="#methodology-fci">FCI composite</a>
+        <a href="#methodology-ftn">Fed Sentiment</a>
+        <a href="#methodology-market">Market Pricing</a>
+        <a href="#methodology-gold">Gold Anchor</a>
+        <a href="#methodology-alignment">Alignment</a>
+        <a href="#methodology-sources">Sources</a>
+      </nav>
+
       <p>
         Alignment measures the consistency between what the Federal Reserve communicates (FTN) and what
         markets price (Market Pricing).
@@ -1092,6 +1156,16 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="method-block">
       <div class="method-anchor" id="methodology-sources"></div>
       <h2>All sources</h2>
+
+      <nav class="methodology-nav compact">
+        <a href="#methodology-fci">FCI composite</a>
+        <a href="#methodology-ftn">Fed Sentiment</a>
+        <a href="#methodology-market">Market Pricing</a>
+        <a href="#methodology-gold">Gold Anchor</a>
+        <a href="#methodology-alignment">Alignment</a>
+        <a href="#methodology-sources">Sources</a>
+      </nav>
+
       <p>
         Every number on the dashboard is traceable to one of the sources below.
       </p>
@@ -1199,14 +1273,13 @@ p strong { color: var(--text-primary); font-weight: 600; }
     <div class="realtime-benefits">
       <h4>What real-time unlocks</h4>
       <ul>
-        <li>Immediate dashboard updates — no 30–45 minute delay</li>
+        <li>Live computation on every request — no 30–45 minute delay</li>
         <li>Email alerts on material FTN moves and FOMC statements</li>
         <li>Historical CSV downloads of FCI and all four component histories</li>
         <li>Raw API access to the composite and every input</li>
-        <li>Priority consideration for the upcoming suite — GIP, GTX, and GOG</li>
       </ul>
     </div>
-    
+
     <p class="pricing-footnote">
       Larger deployments, white-label arrangements, and bespoke data feeds are available on request.
       <a href="#get-access">Contact us</a> for details.
@@ -1281,15 +1354,6 @@ p strong { color: var(--text-primary); font-weight: 600; }
   <div class="container">
     <div>
       <a href="#methodology-fci">Methodology</a>
-      <a href="#terms">Terms</a>
-      <a href="https://ftone-dashboard-gold-preview.netlify.app/" target="_blank" rel="noopener">Dashboard</a>
-    </div>
-    <div>© 2026 FCI — Federal Reserve Credibility Index</div>
-  </div>
-</footer<footer class="site-footer">
-  <div class="container">
-    <div>
-      <a href="#methodology-fci">Methodology</a>
       <a href="#pricing">Pricing</a>
       <a href="#get-access">Get access</a>
       <a href="#terms">Terms</a>
@@ -1297,10 +1361,9 @@ p strong { color: var(--text-primary); font-weight: 600; }
     </div>
     <div>© 2026 FCI — Federal Reserve Credibility Index</div>
   </div>
-</footer>>
+</footer>
 
 <script>
-
 /* Transition banner dismissal — remembers choice for the browser */
 (function() {
   var banner = document.getElementById('transitionBanner');
@@ -1330,7 +1393,7 @@ p strong { color: var(--text-primary); font-weight: 600; }
 
   function updateActive() {
     var scrollY = window.scrollY || window.pageYOffset;
-    var offset = 120;   // accounts for sticky header
+    var offset = 120;
     var current = null;
 
     sections.forEach(function(s) {
@@ -1358,6 +1421,7 @@ p strong { color: var(--text-primary); font-weight: 600; }
   updateActive();
 })();
 
+/* Contact form */
 (function() {
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
