@@ -862,8 +862,6 @@ p strong { color: var(--text-primary); font-weight: 600; }
       </p>
 
       <p>
-        The FCI is a composite 0–100 score measuring the market's real-time assessment of U.S. monetary credibility.
-        <strong>100 = highest credibility. 0 = severe credibility stress.</strong>
         The composite combines two layers: a <em>Core</em> layer capturing Fed stance and market pricing,
         and a <em>Sovereign</em> layer capturing hard-asset backing of the monetary and fiscal system.
       </p>
@@ -1089,21 +1087,27 @@ p strong { color: var(--text-primary); font-weight: 600; }
 
       <p>
         <strong>In plain English.</strong> The US holds 261.5 million ounces of gold — approximately
-        8,133 metric tonnes. At today's market price, that gold is worth roughly $1.1 trillion. Two very
-        different obligations sit on the other side of the ledger: about $6.8 trillion of Fed money-like
-        liabilities (currency, bank reserves, reverse repos), and about $31 trillion of Treasury debt
-        owed to outside creditors. Dividing the gold by each of those gives two coverage ratios — one
-        for the monetary system, one for the sovereign.
+        8,133 metric tonnes. Two very different obligations sit on the other side of the ledger: the
+        Fed's money-like liabilities (currency, bank reserves, reverse repos), and the Treasury debt
+        owed to outside creditors. Dividing the gold's current market value by each of those gives two
+        coverage ratios — one for the monetary system, one for the sovereign. The current value of each
+        input is shown live on the dashboard.
+      </p>
+
+      <p>
+        Each ratio is then converted into a percentile, ranked against the full historical distribution
+        of that same ratio. If today's Monetary Base Cover is 15.0%, and that value is higher than 88%
+        of all recorded Monetary Base Cover readings, then today's percentile is 88 — meaning the current
+        backing is stronger than it has been for 88% of the recorded history. The same calculation is
+        performed independently for the Sovereign Debt Cover, against its own history.
       </p>
       <p>
-        Each ratio is then ranked against its own long-run history. If today's Monetary Base Cover sits in
-        the 88th percentile, that is a high score. If today's Sovereign Debt Cover sits in the 39th
-        percentile, that is a middling score. The two percentiles are averaged to produce the Gold Anchor
-        reading. The percentile is computed against the full available history of each series.
+        The two percentiles are then averaged to produce the Gold Anchor reading.
       </p>
       <p>
-        <strong>Worked example.</strong> Monetary Base Cover = 88th percentile. Sovereign Debt Cover = 39th
-        percentile. Gold Anchor = (88 + 39) ÷ 2 = <strong>63.5</strong>. That lands in "Adequate backing."
+        <strong>Worked example.</strong> Today's Monetary Base Cover sits at the 88th percentile of its
+        own history. Today's Sovereign Debt Cover sits at the 39th percentile of its own history. Gold
+        Anchor = (88 + 39) ÷ 2 = <strong>63.5</strong>. That lands in "Adequate backing."
       </p>
 
       <p>
